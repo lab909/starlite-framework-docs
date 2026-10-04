@@ -19,6 +19,7 @@ Plus anything your `config/bootstrap.php` adds.
 | `absolute_url(pathOrUrl)` | absolute URL from `APP_URL`; absolute `http(s)` URLs are returned unchanged |
 | `t(message, params = {}, language = null)` | translated text |
 | `vite(entry, …)` | `<link>`/`<script>` tags for Vite entry points (dev server or build); entries or lists of entries |
+| `vite_preload(source, …)` | `<link rel="preload">` for built fonts and images, by source path (e.g. a Fontsource `.woff2`); nothing with the dev server |
 | `theme_script()` | inline `<script>` setting `<html data-theme>` from the saved choice or the system setting; first in `<head>` |
 | `public_config()` | `<script type="application/json" id="starlite-config">` with config `public`, or nothing when empty |
 | `seo_tags()` | the page's `<title>`, meta, canonical, Open Graph, Twitter, hreflang and JSON-LD |

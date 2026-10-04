@@ -35,6 +35,7 @@ template, in the `seo` block that renders before the tags are printed:
 | `t(message, params)` | function | `{{ t('Blog') }}` |
 | `vite(entry, …)` | function | `{{ vite('resources/js/app.js', page_scripts ?? []) }}` |
 | `public_config()` | function | config values allowlisted for JavaScript |
+| `vite_preload(source, …)` | function | `<link rel="preload">` for a built font or image |
 | `theme_script()` | function | the light/dark script for the top of `<head>` |
 | `seo_tags()` | function | prints the page's metadata |
 | `absolute_url(path)` | function | `{{ absolute_url('/blog') }}` → `https://example.com/blog` |

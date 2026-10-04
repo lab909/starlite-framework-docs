@@ -8,6 +8,7 @@ resources/
   css/app.css              Tailwind, plus the typography plugin for blog posts
   js/app.js                loaded on every page: the CSS and the Datastar client
   js/pages/*.js            one bundle per page or feature (see JavaScript & Datastar)
+  icons/*.svg              your own icons, used as icon-[app--<name>] (see Fonts & icons)
 ```
 
 The Datastar client itself ships with the framework, matched to its PHP SDK, and is imported as
@@ -39,7 +40,9 @@ npm run build
 ```
 
 This writes hashed files and source maps to `public/build/`, plus a manifest that
-`{{ vite('resources/js/app.js') }}` reads to print the right `<link>` and `<script>` tags.
+`{{ vite('resources/js/app.js') }}` reads to print the right `<link>` and `<script>` tags. URLs inside
+the bundles (fonts and images referenced from CSS) start with `/build/`, as they're served from
+there.
 `bin/console deploy --assets` runs the build for you.
 
 ## `vite.config.js`

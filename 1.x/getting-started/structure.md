@@ -10,7 +10,7 @@ my-site/
 ├── content/blog/            Blog posts, one folder each (see "The blog")
 ├── packages/                Empty (.gitkeep); used by Starlite maintainers, see Contributing
 ├── public/                  Web root: index.php, build/ (Vite), media/ (published post files)
-├── resources/               Frontend sources: js/app.js, js/pages/*.js, css/app.css
+├── resources/               Frontend sources: js/app.js, js/pages/*.js, css/app.css, icons/*.svg
 ├── src/                     Your PHP code (namespace App\): Controller/, Command/, …
 ├── templates/               Twig templates; _partials/ are rendered by Datastar requests
 ├── tests/                   Your app's tests
