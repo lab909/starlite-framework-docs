@@ -95,6 +95,7 @@ Every mistake below stops with a message naming the file, on the page in debug m
 - a linked file or `image` that doesn't exist, isn't an allowed type, or points outside the
   post folder with `..`
 - an asset file name with characters other than letters, digits, dots, dashes and underscores
-- the old `slug:` and `draft:` front matter fields (rename or move the folder instead)
+- `slug:` in the default language (rename the folder instead; translations may have their own), or
+  the old `draft:` field (move the folder instead)
 
 Drafts are never parsed in production builds, so a half-written draft can't break a deploy.

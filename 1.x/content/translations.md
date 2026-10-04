@@ -11,7 +11,27 @@ content/blog/2026/09/hello-starlite/
 ```
 
 `index.md` is always the post in the **default language** (see [Languages](../features/languages)).
-The slug is the same in every language.
+
+## Translated slugs
+
+By default the slug is the same in every language. A translation can have its own with `slug:`:
+
+```markdown
+---
+title: Ciao, Starlite
+slug: ciao-starlite
+---
+```
+
+The Italian post is then `/it/blog/ciao-starlite`. The folder name stays the post's identity: it's
+`post.slug` in templates and what you link with, and `path('blog_post', {slug: 'hello-starlite'})`
+writes the right URL for the current (or given) language. Each version's URL is its `uri` field.
+
+- The untranslated URL, `/it/blog/hello-starlite`, redirects permanently (301) to the Italian one, so
+  existing links keep working.
+- The language switcher and `hreflang` link each version to its own URL.
+- `slug:` is only for translations: in the default language, rename the folder instead.
+- Two posts with the same URL in one language are an error.
 
 ## What a translation contains
 
@@ -21,6 +41,7 @@ A translation needs its own `title`, and usually a `summary`. Everything it omit
 | Field | When omitted |
 |---|---|
 | `title` | required |
+| `slug` | the folder name (see above) |
 | `summary` | the first paragraph with text, of the translation |
 | `date`, `updated`, `image`, `tags` | inherited from `index.md` |
 

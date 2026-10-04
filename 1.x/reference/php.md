@@ -15,7 +15,7 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `handle(Request $request): Response` | handles any request; used by tests |
 | `get(path, handler, name, requirements, priority = 0)`, `post(…)` | add a route |
 | `route(methods, path, handler, name, requirements, csrf = true, priority = 0)` | add a route; higher priority is tried first |
-| `path(name, params = [], language = null): string` | URL path in the current language |
+| `path(name, params = [], language = null): string` | URL path in the current language; for the `page` and `blog_post` routes, pass the folder path / slug and it writes the language's translated URL |
 | `t(message, params = [], language = null): string` | translate a UI text |
 | `posts(): Query`, `pages(): Query`, `collection(name): Query` | content queries ([Querying content](../basics/querying)) |
 | `shadowedPages(): array` | content pages another route hides: `path => route name` (`deploy` refuses to run with any) |
@@ -65,6 +65,7 @@ Query posts with `$app->posts()` ([Querying content](../basics/querying)). `Star
 | `query(): Query` | what `$app->posts()` returns |
 | `items(?language): array` | every post in a language, `slug => post`, newest first |
 | `translations(slug): list` | the languages a post exists in |
+| `uri(slug, language): ?string` | a post's URL segment in a language (a translated slug or the folder name) |
 | `asset(slug, file): ?string` | the path of a post's published file |
 | `warmup()`, `publishAssets(publicDir)` | used by `deploy` |
 | `$perPage` | posts per page (`blog.per_page`) |
@@ -73,7 +74,9 @@ A post is an array:
 
 | Field | |
 |---|---|
-| `slug`, `language`, `title`, `summary` | strings |
+| `slug` | the folder name: the post's identity in every language |
+| `uri` | the URL segment in this language (`slug:` in a translation, or the folder name) |
+| `language`, `title`, `summary` | strings |
 | `date`, `updated` | `YYYY-MM-DD` (`updated` may be `null`) |
 | `image` | public URL or `null` |
 | `tags` | list of strings |
@@ -95,6 +98,7 @@ Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\
 | `query(): Query` | what `$app->pages()` returns |
 | `items(?language): array` | every page in a language, `path => page` |
 | `translations(path): list` | the languages a page exists in |
+| `uri(path, language): ?string` | a page's URL path in a language, translated slugs included |
 | `asset(file): ?string` | the path of a page's published file (`about/team.jpg`) |
 | `warmup()`, `publishAssets(publicDir)` | used by `deploy` |
 | `Pages::PATH`, `Pages::ASSET_URL` | the page route's requirement, `/media/pages` |

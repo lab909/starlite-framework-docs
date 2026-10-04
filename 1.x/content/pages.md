@@ -33,6 +33,7 @@ order: 1                        (optional: for menus)
 updated: 2026-10-01             (optional: last significant change, for the sitemap)
 data:                           (optional: anything else the template needs)
   form_title: Write to us
+slug: chi-siamo                 (translations only: this language's URL segment, see below)
 ---
 Page text in Markdown. ![Our team](team.jpg)
 ```
@@ -46,6 +47,32 @@ matter key is an error that lists the allowed ones: put custom values under `dat
 `updated` and `data` it omits, so a translation usually only needs the title and the text. A page
 without a version in a language doesn't exist there: 404, and the language switcher sends visitors to
 that language's home page.
+
+### Translated slugs
+
+A translation can have its own URL segment with `slug:`:
+
+```md
+---
+title: Chi siamo
+slug: chi-siamo
+---
+```
+
+```
+content/pages/about/index.it.md            slug: chi-siamo        /it/chi-siamo
+content/pages/about/credits/index.it.md    slug: riconoscimenti   /it/chi-siamo/riconoscimenti
+content/pages/about/history/index.it.md    (no slug)              /it/chi-siamo/history
+```
+
+Child pages combine their parents' translated slugs. The folder path stays the page's identity:
+link with `path('page', {path: 'about/credits'})`, and Starlite writes `/about/credits` or
+`/it/chi-siamo/riconoscimenti` depending on the language. Each version's URL is its `uri` field.
+
+The untranslated URL (`/it/about/credits`) redirects permanently to the translated one, and the
+language switcher and `hreflang` link each version to its own URL. `slug:` is only for translations
+(in the default language, rename the folder), and two pages with the same URL in one language are
+an error.
 
 ## Templates
 
@@ -106,8 +133,9 @@ A page has these fields:
 
 | Field | |
 |---|---|
-| `path` | `about/credits`, the URL without the language prefix |
-| `slug` | the last segment: `credits` |
+| `path` | `about/credits`: the folder path, the page's identity in every language |
+| `uri` | the URL path in this language, without the language prefix: `chi-siamo/riconoscimenti` |
+| `slug` | the folder name: `credits` |
 | `parent` | the parent's path, or `''` for a top-level page |
 | `depth` | `1` for top-level pages, `2` for their children… |
 | `language`, `title`, `summary`, `image`, `template`, `order`, `updated`, `data` | from the file and its front matter |
@@ -126,10 +154,11 @@ $app->get('/{path}', [PageController::class, 'show'], 'page', ['path' => Pages::
 
 The page route is a catch-all with a **negative priority**, so every other route wins wherever it's
 defined, and an unknown URL ends up there as a 404. `src/Controller/PageController.php` is yours to
-change, like the blog's controller.
+change, like the blog's controller: it finds the page by its `uri` and redirects folder paths that
+a translated slug replaced.
 
-If a page has the same path as another route, for example `content/pages/blog/` next to the blog
-route, it could never be shown. `deploy` stops with the page and the route's name, and the
+If a page has the same URL as another route in any language, for example `content/pages/blog/` next
+to the blog route, or an Italian `slug: blog`, it could never be shown. `deploy` stops with the page and the route's name, and the
 skeleton's tests check it too.
 
 ## SEO and the sitemap
