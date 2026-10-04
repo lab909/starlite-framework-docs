@@ -55,6 +55,7 @@ export default defineConfig({
                         { text: 'Routing', link: `${v1}/basics/routing` },
                         { text: 'Controllers', link: `${v1}/basics/controllers` },
                         { text: 'Templates', link: `${v1}/basics/templates` },
+                        { text: 'Querying content', link: `${v1}/basics/querying` },
                         { text: 'Datastar', link: `${v1}/basics/datastar` },
                     ],
                 },

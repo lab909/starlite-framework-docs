@@ -63,13 +63,14 @@ posts are parsed on every request, so edits show up immediately.
 
 ## Using posts elsewhere
 
-The `blog` Twig global and `$app->blog` in PHP give you the same data anywhere, for example the
-three latest posts on the home page:
+Query posts anywhere with `posts()` in Twig or `$this->app->posts()` in PHP, for example the
+three latest on the home page:
 
 ```twig
-{% for post in blog.all|slice(0, 3) %}
+{% for post in posts().limit(3) %}
     <a href="{{ path('blog_post', {slug: post.slug}) }}">{{ post.title }}</a>
 {% endfor %}
 ```
 
-See the [PHP API reference](../reference/php#blog) for every method and the fields of a post.
+See [Querying content](../basics/querying) for every parameter, and the
+[PHP reference](../reference/php#blog) for the fields of a post.

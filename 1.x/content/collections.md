@@ -32,8 +32,8 @@ return [
 ];
 ```
 
-Names use lowercase letters, digits and underscores (`collections.team_members` in Twig). `blog`
-and `pages` are reserved.
+Names use lowercase letters, digits and underscores (`collection('team_members')`). `blog` and
+`pages` are reserved.
 
 ### Field types
 
@@ -97,38 +97,31 @@ An item without a translation is hidden in that language, unless the collection 
 `'fallback' => true`. Then it appears in the default language, with `language` set accordingly, so
 templates can mark it: `<li lang="{{ item.language }}">`.
 
-## In templates
+## In templates and PHP
 
-The `collections` global works in the current language, in the configured order:
+Query a collection with `collection('name')`, in the current language and the configured order
+(see [Querying content](../basics/querying) for every parameter):
 
 ```twig
-{% for item in collections.faq %}
+{% for item in collection('faq') %}
     <details>
         <summary>{{ item.question }}</summary>
         {{ item.html|raw }}
     </details>
 {% endfor %}
 
-{% set ada = collections.team.find('ada') %}
-{{ collections.team|length }} people
-{% for member in collections.team.where('role', 'Designer') %}…{% endfor %}
+{% set ada = collection('team').slug('ada').one() %}
+{{ collection('team')|length }} people
+{% for member in collection('team').where('role', 'Designer').orderBy('name') %}…{% endfor %}
 ```
-
-| Method | |
-|---|---|
-| `collection.all(language = null)` | every item (a `for` loop does the same) |
-| `collection.find(slug, language = null)` | one item, or `null` |
-| `collection.where(field, value, language = null)` | items whose field equals the value; for a `list` field, items that contain it |
-| `collection\|length` | the number of items |
 
 `item.html` and `markdown` fields are HTML from Markdown with raw HTML escaped, so `|raw` is safe
 there.
 
-## In PHP
+In PHP it's the same query:
 
 ```php
-$team = $this->app->collections['team'];   // or ->get('team')
-$ada = $team->find('ada');
+$ada = $this->app->collection('team')->slug('ada')->one();
 ```
 
 A page per item is a route of your own:
@@ -140,7 +133,7 @@ $app->get('/team/{slug}', [TeamController::class, 'show'], 'team_member', ['slug
 ```php
 public function show(string $slug): Response|string
 {
-    $member = $this->app->collections['team']->find($slug);
+    $member = $this->app->collection('team')->slug($slug)->one();
     if ($member === null) {
         return $this->notFound();
     }

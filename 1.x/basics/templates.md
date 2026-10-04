@@ -37,13 +37,13 @@ template, in the `seo` block that renders before the tags are printed:
 | `public_config()` | function | config values allowlisted for JavaScript |
 | `vite_preload(source, …)` | function | `<link rel="preload">` for a built font or image |
 | `theme_script()` | function | the light/dark script for the top of `<head>` |
+| `posts()`, `collection(name)` | functions | content queries: `posts().tag('php').limit(3).all()` ([Querying content](./querying)) |
 | `seo_tags()` | function | prints the page's metadata |
 | `absolute_url(path)` | function | `{{ absolute_url('/blog') }}` → `https://example.com/blog` |
 | `language_switcher()` | function | the current page in every language |
 | `format_date`, `format_number`… | filters | `{{ post.date\|format_date('long', locale: site.locale) }}` ([Twig Intl](https://twig.symfony.com/doc/3.x/filters/format_date.html)) |
 | `site` | global | `site.name`, `site.language`, `site.locale` |
 | `seo` | global | `{% do seo.title('…') %}` |
-| `blog` | global | `blog.all`, `blog.tags`, `blog.page(2)` |
 | `datastar` | global | `datastar.get('_partials/search')` ([Datastar](./datastar)) |
 
 Plus the Datastar tags `patch_elements`, `patch_signals`, `remove_elements`, `execute_script` and

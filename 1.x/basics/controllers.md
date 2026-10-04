@@ -16,7 +16,7 @@ final class BlogController extends Controller
 {
     public function show(string $slug): string|Response
     {
-        $post = $this->app->blog->find($slug);
+        $post = $this->app->posts()->slug($slug)->one();
         if ($post === null) {
             return $this->notFound($this->t('Post not found.'));
         }

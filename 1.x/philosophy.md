@@ -47,3 +47,20 @@ It extends Starlite from the outside, through `config/bootstrap.php`, `src/`, `t
 `content/`, and never edits `vendor/`. Framework improvements reach every site with
 `composer update starlite/framework`.
 See [Building a site on Starlite](./extending/).
+
+## Content is asked for, not handed out
+
+Templates get context automatically (`site`, `seo`, `datastar`), but never content: they query
+what they need, like Craft CMS's element queries (`posts().tag('php').limit(3).all()`). A template
+then shows at a glance which content it depends on. See [Querying content](./basics/querying).
+
+## Where Starlite stops
+
+Starlite is for sites whose content is files, edited by people comfortable with Markdown and git.
+Its content types stay few and concrete: the **blog** for dated articles, **data collections** for
+repeating structured data (like Craft's channels), and soon **content pages** for one-offs (like
+Craft's singles, nested like a structure). There are no configurable "section types".
+
+If a site needs an admin UI for editors, a database, user accounts or permissions, relations between
+entries, revisions, or field layouts per entry type, use a CMS such as Craft instead. Rebuilding
+those here would only produce a worse CMS.

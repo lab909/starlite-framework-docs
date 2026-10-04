@@ -32,7 +32,7 @@ $app->addDeployStep('audio', 'app:build-audio', 'Encode the sound files');
 
 // A closure
 $app->addDeployStep('stats', function (Kernel $app, SymfonyStyle $io): ?bool {
-    $io->writeln(sprintf(' ✔ %d posts', count($app->blog->all())));
+    $io->writeln(sprintf(' ✔ %d posts', $app->posts()->count()));
 
     return true; // false stops the deploy
 }, 'Print stats', after: 'blog');

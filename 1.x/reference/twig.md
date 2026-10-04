@@ -6,8 +6,6 @@
 |---|---|---|
 | `site` | `Starlite\Site` | `site.name`, `site.description`, `site.baseUrl`, `site.language`, `site.locale`, `site.defaultLanguage`, `site.languages` |
 | `seo` | `Starlite\Seo\Seo` | page metadata setters: `{% do seo.title('…') %}` (see [SEO](../features/seo)) |
-| `collections` | `Starlite\Collections\Collections` | `collections.faq` (iterable), `collections.faq.find(slug)`, `.where(field, value)`, `.all()` (see [Data collections](../content/collections)) |
-| `blog` | `Starlite\Blog\Blog` | `blog.all`, `blog.find(slug)`, `blog.page(n, q, tag)`, `blog.search(q, tag)`, `blog.tags`, `blog.perPage` |
 | `datastar` | `Starlite\Datastar` | Datastar actions, below |
 
 Plus anything your `config/bootstrap.php` adds.
@@ -16,6 +14,8 @@ Plus anything your `config/bootstrap.php` adds.
 
 | Function | Returns |
 |---|---|
+| `posts()` | a `Starlite\Query` over the blog posts ([Querying content](../basics/querying)) |
+| `collection(name)` | a `Starlite\Query` over a data collection |
 | `path(name, params = {}, language = null)` | URL path of a named route, in the current (or given) language |
 | `absolute_url(pathOrUrl)` | absolute URL from `APP_URL`; absolute `http(s)` URLs are returned unchanged |
 | `t(message, params = {}, language = null)` | translated text |

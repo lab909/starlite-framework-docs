@@ -17,6 +17,7 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `route(methods, path, handler, name, requirements, csrf = true)` | add a route |
 | `path(name, params = [], language = null): string` | URL path in the current language |
 | `t(message, params = [], language = null): string` | translate a UI text |
+| `posts(): Query`, `collection(name): Query` | content queries ([Querying content](../basics/querying)) |
 | `render(template, vars = []): string` | render a Twig template |
 | `stream(template, vars = []): StreamedResponse` | render a template as a Datastar response |
 | `error(status, message, headers = []): Response` | an error page |
@@ -55,18 +56,17 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 
 ## Blog
 
-`Starlite\Blog\Blog` (`$app->blog`, `blog` in Twig). Every method works in the current language
-unless one is given.
+Query posts with `$app->posts()` ([Querying content](../basics/querying)). `Starlite\Blog\Blog`
+(`$app->blog`) is the source behind it: compiling, caching and files.
 
 | Method | |
 |---|---|
-| `all(?language): list` | published posts, newest first |
-| `find(slug, ?language): ?array` | one post, or `null` if it doesn't exist in that language |
+| `query(): Query` | what `$app->posts()` returns |
+| `items(?language): array` | every post in a language, `slug => post`, newest first |
 | `translations(slug): list` | the languages a post exists in |
-| `page(page, query = '', tag = '', ?language): array` | `{posts, page, pages, total, has_more}` |
-| `search(query = '', tag = '', ?language): list` | posts matching title, summary or tags |
-| `tags(?language): array` | `tag => count`, most used first |
-| `$perPage` | posts per page |
+| `asset(slug, file): ?string` | the path of a post's published file |
+| `warmup()`, `publishAssets(publicDir)` | used by `deploy` |
+| `$perPage` | posts per page (`blog.per_page`) |
 
 A post is an array:
 
@@ -90,10 +90,11 @@ A post is an array:
 
 | Member | |
 |---|---|
-| `$app->collections['faq']`, `get(name): Collection` | one collection (unknown names throw) |
+| `query(name): Query` | what `$app->collection(name)` returns (unknown names throw) |
+| `json(name, ?language): list` | the allowlisted fields served at `/data/<name>.json` |
+| `schema(name): Schema` | a collection's definition |
 | `warmup(): array` | compile into `var/cache/collections.php`; returns items per collection |
 | `exported(): list<string>` | collections with a JSON export |
-| `Collection::all(language)`, `find(slug, language)`, `where(field, value, language)`, `json(language)` | items in the current (or given) language |
 
 ## Csp
 

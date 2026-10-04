@@ -25,7 +25,7 @@ final class PostsCommand extends AppCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        foreach ($this->app()->blog->all() as $post) {
+        foreach ($this->app()->posts() as $post) {
             $output->writeln("{$post['date']}  {$post['title']}");
         }
 
