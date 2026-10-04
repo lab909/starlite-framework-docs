@@ -10,20 +10,25 @@
 
 ## Create a site
 
-A Starlite site starts as a clone of the framework repository. Keep the framework as a second git
-remote, so you can pull its updates later:
+A Starlite site starts from the **skeleton**, [lab909/starlite](https://github.com/lab909/starlite).
+On GitHub, click **Use this template** to create your site's own repository (without the
+skeleton's history), then clone it:
 
 ```sh
-git clone --recurse-submodules git@github.com:lab909/starlite-framework.git my-site
+git clone git@github.com:you/my-site.git
 cd my-site
-git remote rename origin starlite
-git remote add origin git@github.com:you/my-site.git   # your site's own repository
 ```
 
-::: tip The docs submodule
-`--recurse-submodules` also fetches this documentation into `docs/`. A site doesn't need it; you
-can remove it with `git rm docs` in your clone.
+::: details Without GitHub's template button
+```sh
+git clone --depth 1 https://github.com/lab909/starlite.git my-site
+cd my-site && rm -rf .git && git init
+```
 :::
+
+The framework isn't part of the skeleton: it's the `starlite/framework` package, which Composer
+installs from [lab909/starlite-framework](https://github.com/lab909/starlite-framework) in the
+next step. It isn't on Packagist; the skeleton's `composer.json` already points Composer at GitHub.
 
 ## Configure
 
@@ -48,7 +53,7 @@ See [Configuration](../basics/configuration) for everything else.
 ```sh
 ddev config --project-name=my-site   # once, if you renamed the project
 ddev start
-ddev composer install
+ddev composer update                 # installs starlite/framework from GitHub
 ddev npm install
 ddev npm run dev                     # Vite + Tailwind with hot reload
 ```
@@ -56,12 +61,17 @@ ddev npm run dev                     # Vite + Tailwind with hot reload
 Open `https://my-site.ddev.site`. Editing a template, a post or a translation reloads the page;
 CSS changes apply without a reload.
 
+::: tip Commit your lock file
+The skeleton doesn't commit `composer.lock`. Your site should: remove the `/composer.lock` line
+from `.gitignore` and commit the file, so every server installs exactly the versions you tested.
+:::
+
 ::: details Without DDEV
 Any PHP 8.4 setup works. Point the web server's document root at `public/` and send every request
 that isn't a file to `public/index.php`. For a quick look:
 
 ```sh
-composer install && npm install && npm run build
+composer update && npm install && npm run build
 php -S localhost:8000 -t public public/index.php
 ```
 

@@ -1,6 +1,7 @@
 # PHP API
 
-The public API of the classes a site uses. Everything lives in `lib/src/` (namespace `Starlite\`).
+The public API of the classes a site uses, from the `starlite/framework` package
+(`vendor/starlite/framework/src/`, namespace `Starlite\`).
 
 ## Kernel
 
@@ -91,3 +92,8 @@ A post is an array:
 
 - `Starlite\Console\AppCommand`: base class for commands; `app()`, `root()`
 - `Starlite\Console\Console::run($root)`: what `bin/console` calls
+
+## Testing
+
+`Starlite\Testing\KernelTestCase`, the base class for app tests (needs `phpunit/phpunit`):
+`bootKernel()`, `request()`, `body()`, `tempDir()`, `copyToTemp()`, `write()`. See [Testing](../testing).

@@ -40,8 +40,10 @@ A misplaced post, a broken image link, a date that doesn't match its folder, a t
 language that isn't configured: Starlite stops with a message naming the file, in the browser
 during development and in `deploy`. Silent failures are the ones that reach production.
 
-## Never edit `lib/`
+## The framework is a dependency
 
-A site extends Starlite from the outside: `config/bootstrap.php`, `src/`, `templates/`, `content/`.
-The framework stays untouched, so improvements can be pulled into every site built on it.
+A site starts from the skeleton and installs the framework (`starlite/framework`) with Composer.
+It extends Starlite from the outside, through `config/bootstrap.php`, `src/`, `templates/` and
+`content/`, and never edits `vendor/`. Framework improvements reach every site with
+`composer update starlite/framework`.
 See [Building a site on Starlite](./extending/).

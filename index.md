@@ -25,8 +25,8 @@ features:
     details: A blog with post folders, images, drafts and translated posts; /it/-style language URLs; Open Graph, JSON-LD, hreflang, sitemap and Atom feeds.
   - title: Proven parts, little glue
     details: Symfony components, Twig, CommonMark and Vite do the heavy lifting. Starlite is the small layer that ties them together, and stays readable.
-  - title: Built to be cloned
-    details: A new site is a clone that never edits lib/. Commands, services, Twig extensions and deploy steps plug in from the app.
+  - title: A skeleton and a package
+    details: Start a site from the skeleton; the framework is a Composer package you update, never edit. Commands, services, Twig extensions and deploy steps plug in from the app.
   - title: Tested and analysed
     details: 130+ tests across the framework and the app, PHPStan level 8, and a CI workflow from day one.
 ---

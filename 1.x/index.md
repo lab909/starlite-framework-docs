@@ -41,8 +41,9 @@ with Markdown files and git. Reach for a full framework or a CMS in those cases.
 
 ## How a site is built on it
 
-A new site is a **clone** of the Starlite repository. The framework lives in `lib/` as a local
-Composer package, and the site adds its own routes, controllers, templates and content around it,
-without ever editing `lib/`. That keeps framework updates easy to pull into every site.
+A new site starts from the **Starlite skeleton** ([lab909/starlite](https://github.com/lab909/starlite)),
+which installs the framework, the [`starlite/framework`](https://github.com/lab909/starlite-framework)
+package, with Composer. The site adds its own routes, controllers, templates and content, and
+updates the framework with `composer update`.
 
 [Install Starlite →](./getting-started/installation)

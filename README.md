@@ -12,5 +12,6 @@ npm run build     # static site in .vitepress/dist
 Pages live in a folder per Starlite version (`1.x/`), so links keep working when 2.x arrives:
 copy the folder, add it to the sidebar and the version menu in `.vitepress/config.mts`.
 
-This repository is a git submodule of the framework repository (`docs/`). Write docs in the same
-pull request series as the code they describe, and update the submodule pointer in the framework.
+Starlite maintainers clone this repository into the skeleton's gitignored `docs/` folder, next to
+the framework in `packages/starlite`, so code and docs change together. See the skeleton's
+[CONTRIBUTING.md](https://github.com/lab909/starlite/blob/main/CONTRIBUTING.md).

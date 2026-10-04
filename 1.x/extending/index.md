@@ -1,11 +1,11 @@
 # Building a site on Starlite
 
-A new site is a clone of the Starlite repository. The site adds its own routes, controllers,
-templates, content and commands, and **never edits `lib/`**.
+A new site starts from the skeleton and installs the framework as a Composer package. The site adds
+its own routes, controllers, templates, content and commands, and **never edits the framework**.
 
-## The rule: never edit `lib/`
+## The rule: never edit `vendor/`
 
-Everything site-specific lives outside the framework:
+Everything site-specific lives in your own files:
 
 | What | Where |
 |---|---|
@@ -19,15 +19,15 @@ Everything site-specific lives outside the framework:
 | CSS, JS, Vite entry points | `resources/`, `vite.config.js` |
 | Tests | `tests/` |
 
-Keeping `lib/` untouched means framework improvements merge cleanly into your site:
+Framework improvements then arrive with a single command, without touching your files:
 
 ```sh
-git remote add starlite git@github.com:lab909/starlite-framework.git   # once, if not done at clone time
-git pull starlite main
+composer update starlite/framework
 ```
 
-If you find yourself needing to change `lib/`, that's a missing extension point: open an issue or
-contribute it to Starlite instead.
+If you find yourself needing to change the framework, that's a missing extension point: open an
+issue or contribute it to Starlite instead (see [Contributing](../contributing)).
+See [Updating Starlite](./updating) for versions and what to check after an update.
 
 ## The extension points
 
@@ -53,6 +53,7 @@ Starlite is not opinionated about your application code. A small app usually is:
 
 ## Housekeeping when you start a site
 
+- Commit your `composer.lock` (remove it from `.gitignore` first)
 - Replace the Datastar demo page and the sample blog posts
 - Set the real site name, description, default share image and author in `config/app.php`
 - Choose the languages (`language`, `languages`) and fill `translations/*.php`

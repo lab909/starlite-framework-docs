@@ -81,6 +81,7 @@ export default defineConfig({
                         { text: 'Services & bootstrap', link: `${v1}/extending/bootstrap` },
                         { text: 'Console commands', link: `${v1}/extending/commands` },
                         { text: 'Deploy steps', link: `${v1}/extending/deploy-steps` },
+                        { text: 'Updating Starlite', link: `${v1}/extending/updating` },
                     ],
                 },
                 {
@@ -90,6 +91,7 @@ export default defineConfig({
                         { text: 'Servers & Opcache', link: `${v1}/deployment/servers` },
                         { text: 'Testing', link: `${v1}/testing` },
                         { text: 'Security', link: `${v1}/security` },
+                        { text: 'Contributing', link: `${v1}/contributing` },
                     ],
                 },
                 {
@@ -107,7 +109,7 @@ export default defineConfig({
         search: { provider: 'local' },
         outline: { level: [2, 3] },
         editLink: { pattern: `${repo}/edit/main/:path`, text: 'Edit this page on GitHub' },
-        socialLinks: [{ icon: 'github', link: 'https://github.com/lab909/starlite-framework' }],
+        socialLinks: [{ icon: 'github', link: 'https://github.com/lab909/starlite' }],
         footer: { message: 'Starlite documentation' },
     },
 });
