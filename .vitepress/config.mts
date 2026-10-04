@@ -1,0 +1,113 @@
+import { defineConfig } from 'vitepress';
+
+// Published on GitHub Pages under /starlite-framework-docs/; set DOCS_BASE=/ for a custom domain.
+const base = process.env.DOCS_BASE ?? '/starlite-framework-docs/';
+const repo = 'https://github.com/lab909/starlite-framework-docs';
+
+// Each Starlite version gets its own folder (1.x/, later 2.x/…), so links never break.
+const v1 = '/1.x';
+
+export default defineConfig({
+    base,
+    lang: 'en-US',
+    title: 'Starlite',
+    description: 'A tiny, database-free PHP micro framework for static-like dynamic sites.',
+    cleanUrls: true,
+    markdown: {
+        // Pages are compiled as Vue templates, so Twig's {{ … }} in inline code would be read as a
+        // Vue expression. Code blocks are already v-pre; do the same for inline code.
+        config(md) {
+            const render = md.renderer.rules.code_inline!;
+            md.renderer.rules.code_inline = (...args) => render(...args).replace(/^<code/, '<code v-pre');
+        },
+    },
+    lastUpdated: true,
+    head: [['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}logo.svg` }]],
+
+    themeConfig: {
+        logo: '/logo.svg',
+        nav: [
+            { text: 'Guide', link: `${v1}/`, activeMatch: `^${v1}/(?!reference)` },
+            { text: 'Reference', link: `${v1}/reference/config`, activeMatch: `^${v1}/reference/` },
+            { text: '1.x', items: [{ text: '1.x (current)', link: `${v1}/` }] },
+        ],
+        sidebar: {
+            [`${v1}/`]: [
+                {
+                    text: 'Introduction',
+                    items: [
+                        { text: 'What is Starlite?', link: `${v1}/` },
+                        { text: 'Philosophy', link: `${v1}/philosophy` },
+                    ],
+                },
+                {
+                    text: 'Getting started',
+                    items: [
+                        { text: 'Installation', link: `${v1}/getting-started/installation` },
+                        { text: 'Project structure', link: `${v1}/getting-started/structure` },
+                        { text: 'Your first page', link: `${v1}/getting-started/first-page` },
+                    ],
+                },
+                {
+                    text: 'The basics',
+                    items: [
+                        { text: 'Configuration', link: `${v1}/basics/configuration` },
+                        { text: 'Routing', link: `${v1}/basics/routing` },
+                        { text: 'Controllers', link: `${v1}/basics/controllers` },
+                        { text: 'Templates', link: `${v1}/basics/templates` },
+                        { text: 'Datastar', link: `${v1}/basics/datastar` },
+                    ],
+                },
+                {
+                    text: 'Content',
+                    items: [
+                        { text: 'The blog', link: `${v1}/content/blog` },
+                        { text: 'Writing posts', link: `${v1}/content/posts` },
+                        { text: 'Translating posts', link: `${v1}/content/translations` },
+                    ],
+                },
+                {
+                    text: 'Features',
+                    items: [
+                        { text: 'Languages', link: `${v1}/features/languages` },
+                        { text: 'SEO', link: `${v1}/features/seo` },
+                        { text: 'Frontend & Vite', link: `${v1}/features/frontend` },
+                    ],
+                },
+                {
+                    text: 'Extending',
+                    items: [
+                        { text: 'Building a site on Starlite', link: `${v1}/extending/` },
+                        { text: 'Services & bootstrap', link: `${v1}/extending/bootstrap` },
+                        { text: 'Console commands', link: `${v1}/extending/commands` },
+                        { text: 'Deploy steps', link: `${v1}/extending/deploy-steps` },
+                    ],
+                },
+                {
+                    text: 'Going live',
+                    items: [
+                        { text: 'Deploying', link: `${v1}/deployment/` },
+                        { text: 'Servers & Opcache', link: `${v1}/deployment/servers` },
+                        { text: 'Testing', link: `${v1}/testing` },
+                        { text: 'Security', link: `${v1}/security` },
+                    ],
+                },
+                {
+                    text: 'Reference',
+                    items: [
+                        { text: 'Configuration', link: `${v1}/reference/config` },
+                        { text: 'Environment variables', link: `${v1}/reference/environment` },
+                        { text: 'Console commands', link: `${v1}/reference/console` },
+                        { text: 'Twig', link: `${v1}/reference/twig` },
+                        { text: 'PHP API', link: `${v1}/reference/php` },
+                    ],
+                },
+            ],
+        },
+        search: { provider: 'local' },
+        outline: { level: [2, 3] },
+        editLink: { pattern: `${repo}/edit/main/:path`, text: 'Edit this page on GitHub' },
+        socialLinks: [{ icon: 'github', link: 'https://github.com/lab909/starlite-framework' }],
+        footer: { message: 'Starlite documentation' },
+    },
+});
