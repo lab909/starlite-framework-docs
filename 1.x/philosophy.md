@@ -58,7 +58,7 @@ then shows at a glance which content it depends on. See [Querying content](./bas
 
 Starlite is for sites whose content is files, edited by people comfortable with Markdown and git.
 Its content types stay few and concrete: the **blog** for dated articles, **data collections** for
-repeating structured data (like Craft's channels), and soon **content pages** for one-offs (like
+repeating structured data (like Craft's channels), and **content pages** for one-offs (like
 Craft's singles, nested like a structure). There are no configurable "section types".
 
 If a site needs an admin UI for editors, a database, user accounts or permissions, relations between

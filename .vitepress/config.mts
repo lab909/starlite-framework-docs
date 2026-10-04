@@ -65,6 +65,7 @@ export default defineConfig({
                         { text: 'The blog', link: `${v1}/content/blog` },
                         { text: 'Writing posts', link: `${v1}/content/posts` },
                         { text: 'Translating posts', link: `${v1}/content/translations` },
+                        { text: 'Content pages', link: `${v1}/content/pages` },
                         { text: 'Data collections', link: `${v1}/content/collections` },
                     ],
                 },

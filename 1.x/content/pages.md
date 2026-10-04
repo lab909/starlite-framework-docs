@@ -1,0 +1,145 @@
+# Content pages
+
+Content pages are one-off pages written in Markdown: About, Privacy, Imprint, Contact… They work like
+Craft's singles, nested like a structure: each page is a folder, and the folders are the URL.
+
+The skeleton has three: `privacy`, `about` and `about/credits`.
+
+```
+content/pages/
+  privacy/
+    index.md               /privacy
+    index.it.md            /it/privacy
+  about/
+    index.md               /about (template: pages/about.twig)
+    team.jpg               /media/pages/about/team.jpg
+    credits/
+      index.md             /about/credits, a child of about
+```
+
+Folder names use lowercase letters, digits and dashes. Every folder under `content/pages/` is a page
+and needs an `index.md`. A page's images and files sit next to it, not in a subfolder, since
+subfolders are child pages. The home page is a route, so there's no `content/pages/index.md`.
+
+## Front matter
+
+```md
+---
+title: About us                 (required)
+summary: Who we are             (optional: meta description; defaults to the first paragraph)
+image: team.jpg                 (optional share image: a file in the folder, a /path or an https URL)
+template: pages/about.twig      (optional: its own template instead of page.twig)
+order: 1                        (optional: for menus)
+updated: 2026-10-01             (optional: last significant change, for the sitemap)
+data:                           (optional: anything else the template needs)
+  form_title: Write to us
+---
+Page text in Markdown. ![Our team](team.jpg)
+```
+
+Relative links and images point at files in the page's folder, like in posts. Any other front
+matter key is an error that lists the allowed ones: put custom values under `data`.
+
+## Translations
+
+`index.<language>.md` is the page in another language. It keeps the `image`, `template`, `order`,
+`updated` and `data` it omits, so a translation usually only needs the title and the text. A page
+without a version in a language doesn't exist there: 404, and the language switcher sends visitors to
+that language's home page.
+
+## Templates
+
+Pages render with `templates/page.twig`, which gets the page as `page`:
+
+```twig
+<h1>{{ page.title }}</h1>
+{{ page.html|raw }}
+```
+
+A page with `template:` in its front matter uses that template instead, with the same `page`
+variable. This is how a page gets its own layout while its text stays in Markdown. A contact page,
+for example:
+
+```md
+---
+title: Contact
+template: pages/contact.twig
+data:
+  form_title: Write to us
+  sent: Thanks, we'll answer soon.
+---
+We read every message and usually answer within two days.
+```
+
+```twig
+{# templates/pages/contact.twig #}
+{% extends 'page.twig' %}
+{% block content %}
+    {{ parent() }}
+    <form data-on:submit__prevent="{{ datastar.action('post', path('contact_send')) }}">
+        <h2>{{ page.data.form_title }}</h2>
+        …
+    </form>
+{% endblock %}
+```
+
+The form posts to a route of your own (`contact_send` in `config/routes.php`). The texts in `data`
+are translated with the page: `index.it.md` gives its own `data`.
+
+## Menus and child pages
+
+Menus are queries ([Querying content](../basics/querying)). The skeleton's footer:
+
+```twig
+{% for item in pages().where('parent', '').orderBy('order, title') %}
+    <a href="{{ path('page', {path: item.path}) }}">{{ item.title }}</a>
+{% endfor %}
+```
+
+A page's children, as `templates/pages/about.twig` lists them:
+
+```twig
+{% for child in pages().where('parent', page.path).orderBy('order, title') %}…{% endfor %}
+```
+
+A page has these fields:
+
+| Field | |
+|---|---|
+| `path` | `about/credits`, the URL without the language prefix |
+| `slug` | the last segment: `credits` |
+| `parent` | the parent's path, or `''` for a top-level page |
+| `depth` | `1` for top-level pages, `2` for their children… |
+| `language`, `title`, `summary`, `image`, `template`, `order`, `updated`, `data` | from the file and its front matter |
+| `html` | the rendered Markdown |
+
+`pages()` is sorted by path, so each page comes before its children.
+
+## Routes
+
+The skeleton's `config/routes.php` has the two routes pages need:
+
+```php
+$app->get(Pages::ASSET_URL . '/{file}', PageAssetController::class, 'page_asset', ['file' => '.+']);
+$app->get('/{path}', [PageController::class, 'show'], 'page', ['path' => Pages::PATH], priority: -1);
+```
+
+The page route is a catch-all with a **negative priority**, so every other route wins wherever it's
+defined, and an unknown URL ends up there as a 404. `src/Controller/PageController.php` is yours to
+change, like the blog's controller.
+
+If a page has the same path as another route, for example `content/pages/blog/` next to the blog
+route, it could never be shown. `deploy` stops with the page and the route's name, and the
+skeleton's tests check it too.
+
+## SEO and the sitemap
+
+`Starlite\Pages\PageSeo` (applied in `PageController`) sets the title, the summary as meta
+description, the share image and a `WebPage` JSON-LD block. Every page is in `/sitemap.xml` in each
+language it's written in, with `updated` as `lastmod`.
+
+## In production
+
+Pages are compiled into `var/cache/pages.php` and their files copied to `public/media/pages/` by
+`deploy` (the `pages` step). Run `deploy` after changing them. In debug mode, edits show up
+immediately.

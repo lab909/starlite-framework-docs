@@ -13,18 +13,19 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `Kernel::boot(string $root, ?bool $debug = null, array $overrides = [])` | builds the app from `config/` |
 | `run()` | handles the current HTTP request (`public/index.php`) |
 | `handle(Request $request): Response` | handles any request; used by tests |
-| `get(path, handler, name, requirements)`, `post(…)` | add a route |
-| `route(methods, path, handler, name, requirements, csrf = true)` | add a route |
+| `get(path, handler, name, requirements, priority = 0)`, `post(…)` | add a route |
+| `route(methods, path, handler, name, requirements, csrf = true, priority = 0)` | add a route; higher priority is tried first |
 | `path(name, params = [], language = null): string` | URL path in the current language |
 | `t(message, params = [], language = null): string` | translate a UI text |
-| `posts(): Query`, `collection(name): Query` | content queries ([Querying content](../basics/querying)) |
+| `posts(): Query`, `pages(): Query`, `collection(name): Query` | content queries ([Querying content](../basics/querying)) |
+| `shadowedPages(): array` | content pages another route hides: `path => route name` (`deploy` refuses to run with any) |
 | `render(template, vars = []): string` | render a Twig template |
 | `stream(template, vars = []): StreamedResponse` | render a template as a Datastar response |
 | `error(status, message, headers = []): Response` | an error page |
 | `request(): Request` | the current request |
 | `addDeployStep(name, step, description, before, after)` | add a step to `deploy` |
 | `$root`, `$debug`, `$cacheDir` | project root, debug mode, cache directory |
-| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp`, `$collections` | Starlite's services |
+| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp`, `$collections`, `$pages` | Starlite's services |
 
 ## Controller
 
@@ -83,6 +84,22 @@ A post is an array:
 | `assets` | publishable files in the post folder |
 
 `Starlite\Blog\PostSeo::apply($seo, $post)` maps a post onto the page metadata.
+
+## Pages
+
+Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\Pages\Pages`
+(`$app->pages`) is the source behind it.
+
+| Member | |
+|---|---|
+| `query(): Query` | what `$app->pages()` returns |
+| `items(?language): array` | every page in a language, `path => page` |
+| `translations(path): list` | the languages a page exists in |
+| `asset(file): ?string` | the path of a page's published file (`about/team.jpg`) |
+| `warmup()`, `publishAssets(publicDir)` | used by `deploy` |
+| `Pages::PATH`, `Pages::ASSET_URL` | the page route's requirement, `/media/pages` |
+
+`Starlite\Pages\PageSeo::apply($seo, $page)` maps a page onto the page metadata.
 
 ## Collections
 

@@ -9,6 +9,7 @@ my-site/
 │   ├── collections.php      Data collections and their fields
 │   └── routes.php           Routes → controllers
 ├── content/blog/            Blog posts, one folder each (see "The blog")
+├── content/pages/           Content pages: About, Privacy… one folder each (see "Content pages")
 ├── content/<collection>/    Data collection items, e.g. content/faq/ (see "Data collections")
 ├── packages/                Empty (.gitkeep); used by Starlite maintainers, see Contributing
 ├── public/                  Web root: index.php, build/ (Vite), media/ (published post files)

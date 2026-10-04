@@ -15,6 +15,7 @@ Plus anything your `config/bootstrap.php` adds.
 | Function | Returns |
 |---|---|
 | `posts()` | a `Starlite\Query` over the blog posts ([Querying content](../basics/querying)) |
+| `pages()` | a `Starlite\Query` over the content pages |
 | `collection(name)` | a `Starlite\Query` over a data collection |
 | `path(name, params = {}, language = null)` | URL path of a named route, in the current (or given) language |
 | `absolute_url(pathOrUrl)` | absolute URL from `APP_URL`; absolute `http(s)` URLs are returned unchanged |

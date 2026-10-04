@@ -18,6 +18,7 @@ $faq = $this->app->collection('faq')->all();
 | Function | Queries |
 |---|---|
 | `posts()` | [blog posts](../content/blog), newest first |
+| `pages()` | [content pages](../content/pages), by path (each page before its children) |
 | `collection(name)` | a [data collection](../content/collections), in its `sort` order |
 
 ## How a query works
@@ -72,7 +73,7 @@ posts: no field "categry". Fields: slug, language, title, date, updated, image, 
 | `one()` | the first match, or `null` |
 | `count()` (or `\|length`) | how many items `all()` would return |
 | `exists()` | whether there's at least one |
-| `paginate(page, perPage = null)` | one page: `{items, page, pages, per_page, total, has_more}`. Ignores `limit` and `offset`; `perPage` defaults to `blog.per_page` for posts and 20 for collections. A page past the end has no items |
+| `paginate(page, perPage = null)` | one page: `{items, page, pages, per_page, total, has_more}`. Ignores `limit` and `offset`; `perPage` defaults to `blog.per_page` for posts and 20 otherwise. A page past the end has no items |
 | `countBy(field)` | how many matches have each value, most frequent first: `posts().countBy('tags')` → `{php: 3, guide: 1}` |
 | `for item in query` | loops over `all()` |
 
@@ -116,6 +117,6 @@ Featured team members, alphabetically:
 
 ## In PHP
 
-`$this->app->posts()` and `$this->app->collection('faq')` return the same `Starlite\Query`, with the
-same methods. With PHPStan, `posts()` is typed as a query of posts, so `->one()` is known to return a
-post array or `null`.
+`$this->app->posts()`, `$this->app->pages()` and `$this->app->collection('faq')` return the same
+`Starlite\Query`, with the same methods. With PHPStan, `posts()` and `pages()` are typed as queries
+of posts and pages, so `->one()` is known to return such an array or `null`.

@@ -16,6 +16,7 @@ ddev console deploy --list-steps
 | `cache` | empty `var/cache` |
 | `routes` | compile the router |
 | `blog` | compile the posts and publish their files to `public/media/blog/` |
+| `pages` | compile the content pages, check that no route hides one, publish their files to `public/media/pages/` |
 | `collections` | compile the data collections |
 | `translations` | compile the translation catalogues |
 | `templates` | compile every Twig template |
