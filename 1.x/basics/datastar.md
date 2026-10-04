@@ -5,7 +5,9 @@
 over server-sent events. Starlite renders that HTML with Twig, so interactive features are plain
 templates.
 
-The Datastar client (v1) is bundled by Vite from `resources/js/vendor/datastar.js`.
+The Datastar client (v1) ships with the framework, matched to its PHP SDK, and `resources/js/app.js`
+loads it on every page. To combine Datastar with your own JavaScript modules, see
+[JavaScript & Datastar](../features/javascript).
 
 ## Render a template on demand
 

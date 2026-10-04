@@ -26,6 +26,8 @@ Behind a reverse proxy, set `APP_TRUSTED_PROXIES` so the check sees the public h
   and is never committed. `config/app.php` refuses to boot without `APP_SECRET`.
 - Vite only inlines variables prefixed `VITE_PUBLIC_` into the bundle, so server variables can't
   reach the frontend.
+- Config values reach the browser only through the `public` allowlist in `config/app.php`
+  (`publicConfig()` in JavaScript), and a value containing `APP_SECRET` stops the app from booting.
 - Variables passed to `datastar.get(…)` are signed but readable: never pass secrets through them.
 
 ## Content

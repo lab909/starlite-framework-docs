@@ -6,9 +6,12 @@ Sources live in `resources/`:
 ```
 resources/
   css/app.css              Tailwind, plus the typography plugin for blog posts
-  js/app.js                imports the CSS and the Datastar client
-  js/vendor/datastar.js    Datastar v1, vendored from the official bundle
+  js/app.js                loaded on every page: the CSS and the Datastar client
+  js/pages/*.js            one bundle per page or feature (see JavaScript & Datastar)
 ```
+
+The Datastar client itself ships with the framework, matched to its PHP SDK, and is imported as
+`'datastar'`.
 
 ## Development
 
@@ -22,7 +25,7 @@ runs, pages load assets from it, and:
 | You change | What happens |
 |---|---|
 | CSS | styles update in place, no reload |
-| JavaScript | the page reloads |
+| JavaScript | the page reloads (unless the module handles hot updates itself) |
 | a Twig template, a Markdown post, a translation file | the page reloads |
 
 This only happens with `APP_DEBUG=1`. Vite writes its URL to `var/vite.hot` while it runs, and PHP
@@ -41,8 +44,9 @@ This writes hashed files and source maps to `public/build/`, plus a manifest tha
 
 ## `vite.config.js`
 
-Your config only lists plugins and entry points. Starlite's part (build output, manifest, the DDEV
-dev server, page reloads, the `VITE_PUBLIC_` env prefix) is a framework plugin:
+Your config only lists plugins. Starlite's part (entry points, the `datastar` and `starlite` import
+aliases, build output, manifest, the DDEV dev server, page reloads, the `VITE_PUBLIC_` env prefix) is
+a framework plugin:
 
 ```js
 import { defineConfig } from 'vite';
@@ -52,27 +56,31 @@ import starlite from './vendor/starlite/framework/resources/vite/starlite.js';
 export default defineConfig({
     plugins: [
         tailwindcss(),
-        starlite({ input: ['resources/js/app.js'] }),
+        starlite(),
     ],
 });
 ```
 
-Options: `input` (entry points) and `reload` (extra file patterns that reload the page). Anything
-you set in `vite.config.js` overrides the plugin's defaults.
+Options: `input` (entry points; default `resources/js/app.js` plus every `resources/js/pages/*.js`)
+and `reload` (extra file patterns that reload the page). Anything you set in `vite.config.js`
+overrides the plugin's defaults.
 
 ## Several entry points
 
-To keep heavy JavaScript off pages that don't need it, give a page its own entry:
-
-```js
-starlite({ input: ['resources/js/app.js', 'resources/js/pages/mixer.js'] })
-```
+To keep heavy JavaScript off pages that don't need it, give a page its own bundle: create
+`resources/js/pages/mixer.js` (picked up automatically) and list it in the page's template:
 
 ```twig
-{{ vite('resources/js/app.js', 'resources/js/pages/mixer.js') }}
+{% set page_scripts = ['resources/js/pages/mixer.js'] %}
 ```
+
+The layout prints it after `app.js` with `{{ vite('resources/js/app.js', page_scripts ?? []) }}`;
+`vite()` accepts entries and lists of entries, and prints shared chunks once. See
+[JavaScript & Datastar](javascript) for how such a module works with Datastar.
 
 ## Environment variables in JavaScript
 
 Only variables prefixed `VITE_PUBLIC_` are ever inlined into the bundle
 (`import.meta.env.VITE_PUBLIC_…`). Everything else, including `APP_SECRET`, stays on the server.
+For values from `config/app.php`, use the `public` allowlist and `publicConfig()` (see
+[JavaScript & Datastar](javascript#publicconfig)).

@@ -18,7 +18,8 @@ Plus anything your `config/bootstrap.php` adds.
 | `path(name, params = {}, language = null)` | URL path of a named route, in the current (or given) language |
 | `absolute_url(pathOrUrl)` | absolute URL from `APP_URL`; absolute `http(s)` URLs are returned unchanged |
 | `t(message, params = {}, language = null)` | translated text |
-| `vite(entry, …)` | `<link>`/`<script>` tags for Vite entry points (dev server or build) |
+| `vite(entry, …)` | `<link>`/`<script>` tags for Vite entry points (dev server or build); entries or lists of entries |
+| `public_config()` | `<script type="application/json" id="starlite-config">` with config `public`, or nothing when empty |
 | `seo_tags()` | the page's `<title>`, meta, canonical, Open Graph, Twitter, hreflang and JSON-LD |
 | `language_switcher()` | list of `{code, name, url, active, available}` for the current page |
 | `patch_signals(signals, options = {})` | Datastar: queue a signals patch (use with `do`) |

@@ -12,7 +12,8 @@ compiled to PHP classes in `var/cache/twig` (by `deploy` or on first use).
 <head>
     {% block seo %}{% endblock %}   {# pages can set metadata here… #}
     {{ seo_tags() }}                {# …printed once: title, description, Open Graph, hreflang, JSON-LD #}
-    {{ vite('resources/js/app.js') }}
+    {{ public_config() }}           {# config values allowlisted for JavaScript #}
+    {{ vite('resources/js/app.js', page_scripts ?? []) }}   {# plus the page's own bundles #}
 </head>
 ```
 
@@ -31,7 +32,8 @@ template, in the `seo` block that renders before the tags are printed:
 | `path(name, params, language)` | function | `{{ path('blog_post', {slug: post.slug}) }}` |
 | `t` | filter | `{{ 'Load more'\|t }}`, `{{ '{n} posts'\|t({n: 3}) }}` |
 | `t(message, params)` | function | `{{ t('Blog') }}` |
-| `vite(entry, …)` | function | `{{ vite('resources/js/app.js') }}` |
+| `vite(entry, …)` | function | `{{ vite('resources/js/app.js', page_scripts ?? []) }}` |
+| `public_config()` | function | config values allowlisted for JavaScript |
 | `seo_tags()` | function | prints the page's metadata |
 | `absolute_url(path)` | function | `{{ absolute_url('/blog') }}` → `https://example.com/blog` |
 | `language_switcher()` | function | the current page in every language |

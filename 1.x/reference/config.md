@@ -12,6 +12,7 @@ environment variables fit together.
 | `language` | string | `'en'` | The default language (no URL prefix) |
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |
 | `blog.per_page` | int | `BLOG_PER_PAGE` or `20` | Posts per page on `/blog` |
+| `public` | map | `[]` | Values page scripts may read through `publicConfig()`; an allowlist, refused if a value contains `APP_SECRET` |
 | `site.name` | string | `'Starlite'` | Site name: titles, Open Graph, feed |
 | `site.description` | string | | Default meta description and feed subtitle |
 | `site.image` | ?string | `null` | Default share image (`/path` or URL) |
