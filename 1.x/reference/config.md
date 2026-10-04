@@ -13,6 +13,9 @@ environment variables fit together.
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |
 | `blog.per_page` | int | `BLOG_PER_PAGE` or `20` | Posts per page on `/blog` |
 | `public` | map | `[]` | Values page scripts may read through `publicConfig()`; an allowlist, refused if a value contains `APP_SECRET` |
+| `csp.enabled` | bool | `true` | Send the Content Security Policy header on pages |
+| `csp.report_only` | bool | `false` | Report violations in the browser console instead of blocking |
+| `csp.sources` | map | `[]` | Extra sources per directive, e.g. `['frame-src' => ['https://player.vimeo.com']]` |
 | `site.name` | string | `'Starlite'` | Site name: titles, Open Graph, feed |
 | `site.description` | string | | Default meta description and feed subtitle |
 | `site.image` | ?string | `null` | Default share image (`/path` or URL) |

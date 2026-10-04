@@ -43,6 +43,7 @@ Behind a reverse proxy, set `APP_TRUSTED_PROXIES` so the check sees the public h
 
 - Every response sends `X-Content-Type-Options: nosniff`, `Referrer-Policy:
   strict-origin-when-cross-origin` and `X-Frame-Options: SAMEORIGIN`.
+- Pages send a strict Content Security Policy (below).
 - Absolute URLs come from `APP_URL` only, so a forged `Host` header can't poison cached pages.
 - Production errors are logged, never shown: visitors get a generic error page.
 
@@ -53,7 +54,68 @@ Behind a reverse proxy, set `APP_TRUSTED_PROXIES` so the check sees the public h
   deploy user.
 - The cachetool phar is pinned to a version and checked against its SHA-256 hash.
 
-## Not yet included
+## Content Security Policy
 
-A Content Security Policy header is planned (with hashes for the few inline scripts, so pages stay
-cacheable). Until then, add one at the web server if you need it; Datastar needs `'unsafe-eval'`.
+Every page tells the browser where it may load things from. By default that's **only your own
+site**, so even if someone managed to inject markup into a page, the browser would refuse to load
+their script, send data to their server or frame their page.
+
+The default policy:
+
+| Directive | Sources | Why |
+|---|---|---|
+| `default-src` | `'self'` | anything not listed below: your site only |
+| `script-src` | `'self' 'unsafe-eval'` + the theme script's hash | your bundles; Datastar evaluates its `data-*` expressions as functions |
+| `style-src` | `'self'` | your CSS |
+| `style-src-attr` | `'unsafe-inline'` | `style="…"` attributes (e.g. `display: none` before `data-show` runs); they can't load anything |
+| `img-src` | `'self' data:` | the icons are SVGs inlined in the CSS |
+| `font-src`, `connect-src`, `media-src` | `'self'` | |
+| `object-src` | `'none'` | no plugins |
+| `base-uri`, `form-action`, `frame-ancestors` | `'self'` | no `<base>` hijacking, forms only post to you, only you may frame your pages |
+
+There are no per-request nonces: a nonce makes every response different, which would break ETags and
+public caching. The one inline script, the theme script, is allowed by its hash, which never changes.
+The JSON blocks (`public_config()`, JSON-LD) are data, not scripts, so the policy doesn't apply to
+them.
+
+While the Vite dev server runs (debug mode), its origin and WebSocket are allowed too.
+
+### Allowing other hosts
+
+When a feature needs another host (a video player, analytics, a CDN), add it to the directive it
+needs in `config/app.php`:
+
+```php
+'csp' => [
+    'enabled' => true,
+    'report_only' => false,
+    'sources' => [
+        'frame-src' => ['https://www.youtube-nocookie.com'],
+        'media-src' => ['https://cdn.example.com'],
+    ],
+],
+```
+
+or from `config/bootstrap.php`:
+
+```php
+$app->csp->allow('script-src', 'https://plausible.io')->allow('connect-src', 'https://plausible.io');
+```
+
+A directive the policy doesn't list yet (like `frame-src`) starts from `'self'`. Unknown directives
+and sources containing spaces, `;` or `,` are refused, so a typo can't silently break the policy.
+
+To try a change without breaking anything, set `report_only` to `true`: browsers then only report
+what they would block, in the developer console. A controller can send its own
+`Content-Security-Policy` header for one page; Starlite then leaves it alone.
+
+### Inline scripts from Datastar
+
+`execute_script()` runs its code as an inline `<script>`, which the policy blocks. Allow each script
+by its exact code:
+
+```php
+$app->csp->allowScript("console.log('updated')");
+```
+
+Patching elements and signals needs nothing in the policy, so prefer those.

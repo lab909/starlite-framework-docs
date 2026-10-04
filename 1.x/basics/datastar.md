@@ -66,6 +66,9 @@ For more than one change, queue events explicitly. They're sent in template orde
 {% do location('/thanks') %}
 ```
 
+`execute_script()` is blocked by the [Content Security Policy](../security#inline-scripts-from-datastar)
+unless you allow that exact script; patching elements and signals is usually the better choice.
+
 ## Calling your own routes
 
 For logic that belongs in PHP, point Datastar at a route and return `stream()` from the controller:

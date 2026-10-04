@@ -23,7 +23,7 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `request(): Request` | the current request |
 | `addDeployStep(name, step, description, before, after)` | add a step to `deploy` |
 | `$root`, `$debug`, `$cacheDir` | project root, debug mode, cache directory |
-| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite` | Starlite's services |
+| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp` | Starlite's services |
 
 ## Controller
 
@@ -83,6 +83,19 @@ A post is an array:
 | `assets` | publishable files in the post folder |
 
 `Starlite\Blog\PostSeo::apply($seo, $post)` maps a post onto the page metadata.
+
+## Csp
+
+`Starlite\Csp` (`$app->csp`), the Content Security Policy sent on pages (see [Security](../security#content-security-policy)).
+
+| Member | |
+|---|---|
+| `allow(directive, ...sources): self` | add sources, e.g. `allow('frame-src', 'https://player.vimeo.com')` |
+| `allowScript(code): self` | allow one inline script by its hash (for `execute_script()`) |
+| `Csp::hash(code): string` | `'sha256-…'` source for inline code |
+| `directives(): array` | the policy, `directive => sources` |
+| `header(?devServer): string` | the header value |
+| `$enabled`, `$reportOnly` | from `config/app.php` `csp` |
 
 ## Container
 
