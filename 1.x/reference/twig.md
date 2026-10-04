@@ -6,6 +6,7 @@
 |---|---|---|
 | `site` | `Starlite\Site` | `site.name`, `site.description`, `site.baseUrl`, `site.language`, `site.locale`, `site.defaultLanguage`, `site.languages` |
 | `seo` | `Starlite\Seo\Seo` | page metadata setters: `{% do seo.title('…') %}` (see [SEO](../features/seo)) |
+| `collections` | `Starlite\Collections\Collections` | `collections.faq` (iterable), `collections.faq.find(slug)`, `.where(field, value)`, `.all()` (see [Data collections](../content/collections)) |
 | `blog` | `Starlite\Blog\Blog` | `blog.all`, `blog.find(slug)`, `blog.page(n, q, tag)`, `blog.search(q, tag)`, `blog.tags`, `blog.perPage` |
 | `datastar` | `Starlite\Datastar` | Datastar actions, below |
 

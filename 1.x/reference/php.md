@@ -23,7 +23,7 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `request(): Request` | the current request |
 | `addDeployStep(name, step, description, before, after)` | add a step to `deploy` |
 | `$root`, `$debug`, `$cacheDir` | project root, debug mode, cache directory |
-| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp` | Starlite's services |
+| `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp`, `$collections` | Starlite's services |
 
 ## Controller
 
@@ -83,6 +83,17 @@ A post is an array:
 | `assets` | publishable files in the post folder |
 
 `Starlite\Blog\PostSeo::apply($seo, $post)` maps a post onto the page metadata.
+
+## Collections
+
+`Starlite\Collections\Collections` (`$app->collections`), see [Data collections](../content/collections).
+
+| Member | |
+|---|---|
+| `$app->collections['faq']`, `get(name): Collection` | one collection (unknown names throw) |
+| `warmup(): array` | compile into `var/cache/collections.php`; returns items per collection |
+| `exported(): list<string>` | collections with a JSON export |
+| `Collection::all(language)`, `find(slug, language)`, `where(field, value, language)`, `json(language)` | items in the current (or given) language |
 
 ## Csp
 

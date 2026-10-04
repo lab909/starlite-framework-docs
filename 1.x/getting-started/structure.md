@@ -6,8 +6,10 @@ my-site/
 ├── config/
 │   ├── app.php              Settings: secret, URL, languages, blog, site defaults
 │   ├── bootstrap.php        The app's extension point: services, Twig additions, deploy steps
+│   ├── collections.php      Data collections and their fields
 │   └── routes.php           Routes → controllers
 ├── content/blog/            Blog posts, one folder each (see "The blog")
+├── content/<collection>/    Data collection items, e.g. content/faq/ (see "Data collections")
 ├── packages/                Empty (.gitkeep); used by Starlite maintainers, see Contributing
 ├── public/                  Web root: index.php, build/ (Vite), media/ (published post files)
 ├── resources/               Frontend sources: js/app.js, js/pages/*.js, css/app.css, icons/*.svg

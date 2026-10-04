@@ -21,12 +21,18 @@ environment variables fit together.
 | `site.image` | ?string | `null` | Default share image (`/path` or URL) |
 | `site.author` | ?string | `null` | Author for posts and the feed; defaults to the site name |
 
+## `config/collections.php`
+
+Data collections and their fields: `name => ['fields' => […], 'sort' => …, 'fallback' => …, 'json' => …]`.
+See [Data collections](../content/collections).
+
 ## Overrides
 
-`Kernel::boot($root, $debug, $overrides)` merges `$overrides` over the file. Two extra keys are
+`Kernel::boot($root, $debug, $overrides)` merges `$overrides` over the file. These extra keys are
 only meant for overrides (mostly in tests):
 
 | Key | Default | |
 |---|---|---|
-| `content_dir` | `<root>/content` | where the blog's `blog/` folder lives |
+| `content_dir` | `<root>/content` | where `blog/` and the collection folders live |
 | `cache_dir` | `<root>/var/cache` | where compiled caches are written |
+| `collections` | `config/collections.php` | collection definitions, instead of the file |
