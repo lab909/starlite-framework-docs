@@ -73,6 +73,7 @@ export default defineConfig({
                         { text: 'SEO', link: `${v1}/features/seo` },
                         { text: 'Frontend & Vite', link: `${v1}/features/frontend` },
                         { text: 'JavaScript & Datastar', link: `${v1}/features/javascript` },
+                        { text: 'Dark & light theme', link: `${v1}/features/theme` },
                     ],
                 },
                 {

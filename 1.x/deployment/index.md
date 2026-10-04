@@ -40,12 +40,12 @@ the right thing everywhere.
 the next deploy. When you go back to development:
 
 ```sh
-composer dump-autoload
 php bin/console cache:clear
 ```
 
-`cache:clear` also removes the post files published to `public/media/blog/`, which would otherwise
-shadow the originals in `content/`.
+It empties the caches, rebuilds the normal autoloader with `composer dump-autoload` (only when a
+deploy left it authoritative; `--composer=<path>` if Composer isn't on your `PATH`), and removes the
+post files published to `public/media/blog/`, which would otherwise shadow the originals in `content/`.
 
 ## Production checklist
 

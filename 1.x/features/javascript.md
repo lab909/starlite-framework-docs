@@ -102,6 +102,11 @@ unavailable (private mode, quota), the page simply starts from its defaults.
 
 Datastar's own persistence is part of Datastar Pro; this helper covers the common case without it.
 
+## `theme()`
+
+Applies the light / dark / system choice held in the `_theme` signal and saves it. The skeleton
+calls it in `app.js`; see [Dark & light theme](theme).
+
 ## `publicConfig()`
 
 Sometimes the browser needs a value from the server, such as the CDN address for media files. List

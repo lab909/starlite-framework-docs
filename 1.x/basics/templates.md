@@ -10,6 +10,7 @@ compiled to PHP classes in `var/cache/twig` (by `deploy` or on first use).
 ```twig
 <html lang="{{ site.language }}">
 <head>
+    {{ theme_script() }}            {# first: light/dark before anything is painted #}
     {% block seo %}{% endblock %}   {# pages can set metadata here… #}
     {{ seo_tags() }}                {# …printed once: title, description, Open Graph, hreflang, JSON-LD #}
     {{ public_config() }}           {# config values allowlisted for JavaScript #}
@@ -34,6 +35,7 @@ template, in the `seo` block that renders before the tags are printed:
 | `t(message, params)` | function | `{{ t('Blog') }}` |
 | `vite(entry, …)` | function | `{{ vite('resources/js/app.js', page_scripts ?? []) }}` |
 | `public_config()` | function | config values allowlisted for JavaScript |
+| `theme_script()` | function | the light/dark script for the top of `<head>` |
 | `seo_tags()` | function | prints the page's metadata |
 | `absolute_url(path)` | function | `{{ absolute_url('/blog') }}` → `https://example.com/blog` |
 | `language_switcher()` | function | the current page in every language |
