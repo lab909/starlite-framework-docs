@@ -67,6 +67,7 @@ log_errors=On
 root /var/www/my-site/public;
 
 location /build/ { expires 1y; add_header Cache-Control "public, immutable"; }
+location /media/ { expires 7d; add_header Cache-Control "public"; try_files $uri /index.php?$query_string; }
 location / { try_files $uri /index.php?$query_string; }
 
 location ~ \.php$ {
@@ -98,9 +99,31 @@ DocumentRoot /var/www/my-site/public
 <Location /build/>
     Header set Cache-Control "public, max-age=31536000, immutable"
 </Location>
+<Location /media/>
+    Header set Cache-Control "public, max-age=604800"
+</Location>
 ```
 
 With mod_php, drop the `FilesMatch` and `Proxy` blocks.
+
+`/build/` files have a content hash in their name, so they're cached for a year. `/media/` files
+(post and page images, video posters) keep their name when replaced, so they get a week: a changed
+image shows up within days without anyone clearing a cache. Rename a file to publish a change at
+once.
+
+## A CDN for media files
+
+Images and videos are usually the heaviest part of a page. To serve them from a CDN, create a "pull"
+CDN zone whose origin is your site, and set:
+
+```sh
+MEDIA_URL=https://cdn.example.com
+```
+
+Post and page files and video posters then link to `https://cdn.example.com/media/…`, which the CDN
+fetches from your site's `/media/` the first time and caches. `deploy` still publishes the files to
+`public/media/`, and the CDN's host is added to the Content Security Policy's `img-src` and
+`media-src` automatically. Run `deploy` after changing `MEDIA_URL`: post HTML is compiled with it.
 
 ::: tip
 Apache doesn't allow comments after a directive on the same line, which is why the comment above

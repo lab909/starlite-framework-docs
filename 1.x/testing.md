@@ -1,7 +1,7 @@
 # Testing
 
 ```sh
-npm run build          # once: the app's templates include the Vite manifest
+npm run build          # optional: without it, the tests that check assets are skipped
 composer test          # PHPUnit; in DDEV: ddev composer test
 composer analyse       # PHPStan, level 8
 ```
@@ -51,6 +51,25 @@ temporary cache directory. The helpers:
 | `self::body($response)` | the body of any response, including Datastar streams and files |
 | `$this->datastarUrl($html, $template)` | the Datastar URL rendering `$template`, from a page |
 | `$this->tempDir()`, `$this->copyToTemp()`, `self::write()` | temporary files, deleted after the test |
+
+## Tests and the Vite build
+
+The templates print Vite's asset tags, which come from `public/build/` after `npm run build`. Before
+the first build, `KernelTestCase` makes pages render without those tags instead of failing, so every
+test runs on a fresh clone. A test that checks assets declares it, and is skipped until there's a
+build:
+
+```php
+public function testThePageScriptLoads(): void
+{
+    $app = $this->app();
+    $this->requireViteBuild($app); // skipped, with "run npm run build", when there's no build
+
+    self::assertStringContainsString('/build/assets/home-', self::body($this->request($app, '/')));
+}
+```
+
+CI runs `npm run build` before the tests, so these run there.
 
 ## Requests with headers
 

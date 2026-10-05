@@ -78,7 +78,8 @@ public caching. The one inline script, the theme script, is allowed by its hash,
 The JSON blocks (`public_config()`, JSON-LD) are data, not scripts, so the policy doesn't apply to
 them.
 
-While the Vite dev server runs (debug mode), its origin and WebSocket are allowed too.
+While the Vite dev server runs (debug mode), its origin and WebSocket are allowed too. With
+`MEDIA_URL` set, its host is allowed in `img-src` and `media-src`.
 
 ### Allowing other hosts
 

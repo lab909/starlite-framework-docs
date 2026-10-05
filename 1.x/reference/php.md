@@ -148,4 +148,5 @@ Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\
 ## Testing
 
 `Starlite\Testing\KernelTestCase`, the base class for app tests (needs `phpunit/phpunit`):
-`bootKernel()`, `request()`, `body()`, `tempDir()`, `copyToTemp()`, `write()`. See [Testing](../testing).
+`bootKernel()`, `request()`, `body()`, `tempDir()`, `copyToTemp()`, `write()`, and
+`requireViteBuild($app)` for tests that check built assets. See [Testing](../testing).

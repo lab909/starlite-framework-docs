@@ -8,6 +8,7 @@ lists them all.
 | `APP_SECRET` | yes | | Signs Datastar template URLs. Generate with `openssl rand -hex 32` |
 | `APP_URL` | yes | | Public base URL, no trailing slash, e.g. `https://example.com` |
 | `APP_DEBUG` | no | off | `1` = development mode |
+| `MEDIA_URL` | no | | Serve post and page files and video posters from a CDN: an `https://` base URL, no trailing slash |
 | `BLOG_PER_PAGE` | no | `20` | Posts per page on `/blog` |
 | `APP_TRUSTED_PROXIES` | no | | Comma-separated IPs/CIDRs of trusted proxies, or `REMOTE_ADDR` |
 | `APP_OPCACHE` | no | `cachetool` | How `deploy` refreshes Opcache: `cachetool`, `reload` or `none` |

@@ -8,6 +8,7 @@ environment variables fit together.
 | `secret` | string | `APP_SECRET` (required) | Signs Datastar template URLs |
 | `debug` | bool | `APP_DEBUG === '1'` | Development mode: no caches, drafts visible, exception pages |
 | `url` | string | `APP_URL` (required, validated) | Public base URL, no trailing slash. Used for every absolute URL |
+| `media_url` | string | `MEDIA_URL` or `''` | Where post and page files and video posters are served from: `''` (this site) or a CDN's `https://` base URL |
 | `trusted_proxies` | list | from `APP_TRUSTED_PROXIES` | Reverse proxies whose `X-Forwarded-*` headers are trusted |
 | `language` | string | `'en'` | The default language (no URL prefix) |
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |
