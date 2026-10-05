@@ -82,6 +82,37 @@ during development, in the tests and in `deploy`:
 - a line that starts like a component (`::` and a letter) but doesn't parse
 - a component in a collection's `markdown` field (they only work in the body)
 
+## Videos: YouTube and Vimeo
+
+Two components come with the framework:
+
+```md
+::youtube{id="aqz-KE-bpKQ"}
+::youtube{id="aqz-KE-bpKQ" title="Big Buck Bunny" start=90}
+::vimeo{id="1084537"}
+```
+
+`id` is the 11 characters after `watch?v=` in a YouTube URL, or the number in a Vimeo URL. `title` and
+`start` (seconds) are optional. A wrong `id` fails the build like any component error.
+
+**Nothing is loaded from YouTube or Vimeo until the visitor presses play.** A normal embedded player
+contacts the video host as soon as the page opens, which sends every visitor's IP address there,
+even on `youtube-nocookie.com`. These components instead show:
+
+- **A poster this site serves itself.** `deploy` (the `embeds` step) downloads each video's thumbnail
+  and title into `public/media/embeds/`, from the server, never from visitors' browsers. In
+  development a missing poster is downloaded once, on first view. If it can't be downloaded
+  (offline, a private video), a neutral poster is shown and the deploy carries on with a warning.
+- **A play button.** Datastar then gives the player its address, and only then does the video load:
+  YouTube from `youtube-nocookie.com`, Vimeo with its do-not-track option.
+- **Without JavaScript,** the poster is a link to the video on youtube.com or vimeo.com.
+
+The player's host is allowed in the [Content Security Policy](../security#content-security-policy)
+(`frame-src`) **only on pages that show a video**. Other pages keep the strict policy.
+
+Both use `_embeds/video.twig` for their look: copy it to `templates/_embeds/video.twig` to restyle
+them together.
+
 ## Overriding and default components
 
 Templates are looked up in order:
@@ -97,6 +128,18 @@ name in `templates/_components/`. An override can extend the original:
 {# templates/_components/youtube.twig #}
 {% extends '@starlite/_components/youtube.twig' %}
 ```
+
+## Allowing sources for a component
+
+A component that needs something from another host (audio from a CDN, a map's tiles) can allow it
+in the Content Security Policy for the page it's on, and only that page:
+
+```twig
+{% do csp_allow('media-src', 'https://cdn.example.com') %}
+<audio src="https://cdn.example.com/rain.opus" controls></audio>
+```
+
+`csp_allow()` refuses unknown directives and malformed sources, like the site's `csp.sources`.
 
 ## In the feed
 

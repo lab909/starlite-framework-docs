@@ -14,6 +14,8 @@ Plus anything your `config/bootstrap.php` adds.
 
 | Function | Returns |
 |---|---|
+| `video(provider, id, start = 0)` | for video components: `{provider, name, id, title, poster, player, src, url}`; allows the player in this page's `frame-src` |
+| `csp_allow(directive, source, …)` | adds Content Security Policy sources to the current response only (use with `do`) |
 | `content(item)` | the item's HTML with its content components rendered (`entry` = the item) |
 | `posts()` | a `Starlite\Query` over the blog posts ([Querying content](../basics/querying)) |
 | `pages()` | a `Starlite\Query` over the content pages |

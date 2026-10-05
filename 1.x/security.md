@@ -109,6 +109,13 @@ To try a change without breaking anything, set `report_only` to `true`: browsers
 what they would block, in the developer console. A controller can send its own
 `Content-Security-Policy` header for one page; Starlite then leaves it alone.
 
+### Sources for one page
+
+Components can allow a source on the page they appear on with `{% do csp_allow('frame-src', '…') %}`
+(see [Content components](./content/components#allowing-sources-for-a-component)). The built-in video
+components do this for their player, so `frame-src` lists YouTube or Vimeo only on pages that show a
+video. Everything else keeps the site's policy.
+
 ### Inline scripts from Datastar
 
 `execute_script()` runs its code as an inline `<script>`, which the policy blocks. Allow each script

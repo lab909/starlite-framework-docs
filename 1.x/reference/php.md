@@ -21,6 +21,9 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `shadowedPages(): array` | content pages another route hides: `path => route name` (`deploy` refuses to run with any) |
 | `render(template, vars = []): string` | render a Twig template |
 | `content(item, ?link): string` | an item's HTML with its components rendered; with `$link`, components become links (the feed) |
+| `cspAllow(directive, ...sources)` | CSP sources for the current response only |
+| `video(provider, id, start = 0): array` | a video's poster, title and player URL; allows the player for this response |
+| `$embeds` | `Starlite\Content\Embeds`: `check()`, `video()`, `fetch()`, `missing()` |
 | `addTemplates(dir, ?namespace)` | add a package's templates after the site's, before the framework's |
 | `Kernel::TEMPLATES` | the framework's default templates folder (`@starlite/…`) |
 | `stream(template, vars = []): StreamedResponse` | render a template as a Datastar response |
