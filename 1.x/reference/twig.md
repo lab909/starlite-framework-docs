@@ -14,6 +14,7 @@ Plus anything your `config/bootstrap.php` adds.
 
 | Function | Returns |
 |---|---|
+| `content(item)` | the item's HTML with its content components rendered (`entry` = the item) |
 | `posts()` | a `Starlite\Query` over the blog posts ([Querying content](../basics/querying)) |
 | `pages()` | a `Starlite\Query` over the content pages |
 | `collection(name)` | a `Starlite\Query` over a data collection |

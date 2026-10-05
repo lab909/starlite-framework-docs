@@ -20,6 +20,9 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `posts(): Query`, `pages(): Query`, `collection(name): Query` | content queries ([Querying content](../basics/querying)) |
 | `shadowedPages(): array` | content pages another route hides: `path => route name` (`deploy` refuses to run with any) |
 | `render(template, vars = []): string` | render a Twig template |
+| `content(item, ?link): string` | an item's HTML with its components rendered; with `$link`, components become links (the feed) |
+| `addTemplates(dir, ?namespace)` | add a package's templates after the site's, before the framework's |
+| `Kernel::TEMPLATES` | the framework's default templates folder (`@starlite/…`) |
 | `stream(template, vars = []): StreamedResponse` | render a template as a Datastar response |
 | `error(status, message, headers = []): Response` | an error page |
 | `request(): Request` | the current request |

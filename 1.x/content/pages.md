@@ -80,7 +80,7 @@ Pages render with `templates/page.twig`, which gets the page as `page`:
 
 ```twig
 <h1>{{ page.title }}</h1>
-{{ page.html|raw }}
+{{ content(page) }}    {# the Markdown, with its components rendered #}
 ```
 
 A page with `template:` in its front matter uses that template instead, with the same `page`

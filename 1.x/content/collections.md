@@ -106,7 +106,7 @@ Query a collection with `collection('name')`, in the current language and the co
 {% for item in collection('faq') %}
     <details>
         <summary>{{ item.question }}</summary>
-        {{ item.html|raw }}
+        {{ content(item) }}
     </details>
 {% endfor %}
 
@@ -115,8 +115,8 @@ Query a collection with `collection('name')`, in the current language and the co
 {% for member in collection('team').where('role', 'Designer').orderBy('name') %}…{% endfor %}
 ```
 
-`item.html` and `markdown` fields are HTML from Markdown with raw HTML escaped, so `|raw` is safe
-there.
+`content(item)` prints the body with its [components](./components) rendered. `markdown` fields are
+HTML from Markdown with raw HTML escaped, so `{{ item.bio|raw }}` is safe.
 
 In PHP it's the same query:
 
