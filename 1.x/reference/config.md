@@ -17,10 +17,12 @@ environment variables fit together.
 | `csp.enabled` | bool | `true` | Send the Content Security Policy header on pages |
 | `csp.report_only` | bool | `false` | Report violations in the browser console instead of blocking |
 | `csp.sources` | map | `[]` | Extra sources per directive, e.g. `['frame-src' => ['https://player.vimeo.com']]` |
-| `site.name` | string | `'Starlite'` | Site name: titles, Open Graph, feed |
-| `site.description` | string | | Default meta description and feed subtitle |
-| `site.image` | ?string | `null` | Default share image (`/path` or URL) |
-| `site.author` | ?string | `null` | Author for posts and the feed; defaults to the site name |
+| `site.name` | string or map | `'Starlite'` | Site name: titles, Open Graph, feed |
+| `site.description` | string or map | | Default meta description and feed subtitle |
+| `site.image` | ?string or map | `null` | Default share image (`/path` or URL) |
+| `site.author` | ?string or map | `null` | Author for posts and the feed; defaults to the site name |
+
+Each `site` value can be a map `language => value` instead, see [Languages](../features/languages#the-site-s-name-description-and-share-image).
 
 ## `config/collections.php`
 

@@ -4,7 +4,7 @@
 
 | Global | Type | |
 |---|---|---|
-| `site` | `Starlite\Site` | `site.name`, `site.description`, `site.baseUrl`, `site.language`, `site.locale`, `site.defaultLanguage`, `site.languages` |
+| `site` | `Starlite\Site` | `site.name`, `site.description` (in the current language), `site.baseUrl`, `site.language`, `site.locale`, `site.defaultLanguage`, `site.languages` |
 | `seo` | `Starlite\Seo\Seo` | page metadata setters: `{% do seo.title('…') %}` (see [SEO](../features/seo)) |
 | `datastar` | `Starlite\Datastar` | Datastar actions, below |
 

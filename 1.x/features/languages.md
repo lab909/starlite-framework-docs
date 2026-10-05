@@ -100,7 +100,31 @@ $this->app->site->setAlternates(
 The switcher then marks the other languages as unavailable and links them to the fallback, and
 `hreflang` lists only the existing versions.
 
+## The site's name, description and share image
+
+In `config/app.php`, each `site` value is either the same for every language or a map per language:
+
+```php
+'site' => [
+    'name' => 'Starlite',
+    'description' => [
+        'en' => 'A database-free PHP micro framework for static-like dynamic sites.',
+        'it' => 'Un micro framework PHP senza database per siti dinamici veloci come quelli statici.',
+    ],
+    'image' => ['en' => '/images/share.en.png', 'it' => '/images/share.it.png'],
+    'author' => null,
+],
+```
+
+They follow the page's language everywhere: titles (`About · Starlite`), the meta description, Open
+Graph, JSON-LD, the feed's title and subtitle, and `site.name` / `site.description` in templates
+(`$this->app->site->name()` in PHP).
+
+A language missing from a map uses the default language's value; `null` in a map means "none in this
+language" (for example, no share image). A map must include the default language, and only list
+configured languages: anything else stops the site at boot.
+
 ## What's translated
 
-UI texts, dates, error pages, blog posts and their feeds, `<html lang>`, `og:locale` and hreflang.
-The site name and description in `config/app.php` are the same in every language.
+UI texts, dates, error pages, blog posts, pages, collections and their URLs, the site's name and
+description, feeds, `<html lang>`, `og:locale` and hreflang.

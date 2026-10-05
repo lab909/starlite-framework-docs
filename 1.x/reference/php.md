@@ -45,7 +45,8 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 
 | Member | |
 |---|---|
-| `$name`, `$description`, `$image`, `$author`, `$baseUrl` | from `config/app.php` |
+| `name(?language)`, `description(?language)`, `image(?language)`, `author(?language)` | from `config/app.php`, in the current (or given) language |
+| `$baseUrl` | `APP_URL` |
 | `$defaultLanguage`, `$languages` | language configuration |
 | `language(): string`, `locale(): string` | the current language and locale |
 | `prefix(?language): string` | `''` for the default language, `'/it'` otherwise |
