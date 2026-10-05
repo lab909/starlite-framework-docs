@@ -86,7 +86,51 @@ $this->request($app, '/about', 'GET', ['If-None-Match' => $etag]);
 `phpunit.xml.dist` sets `APP_SECRET`, `APP_URL=https://example.test`, `APP_DEBUG=0` and
 `BLOG_PER_PAGE`, as real environment variables, so your `.env` never leaks into the tests.
 
+## Browser tests
+
+PHPUnit checks what the server sends. [Playwright](https://playwright.dev) tests in `tests/e2e/`
+check what visitors get: the real site in Chromium, served by PHP's built-in server in production
+mode (`playwright.config.js`).
+
+```sh
+npm run build
+npm run test:e2e                       # in DDEV: ddev exec CHROMIUM_PATH=/usr/bin/chromium npm run test:e2e
+```
+
+The skeleton's tests cover:
+
+| Spec | Checks |
+|---|---|
+| `pages.spec.js` | every URL in the sitemap loads, in both languages; unknown URLs are a 404 |
+| `datastar.spec.js` | the Datastar demos: search, signed actions, server-sent events, blog filters |
+| `theme.spec.js` | the system theme, a remembered choice from the first paint (no flash), following the system |
+| `persist.spec.js` | a persisted signal survives a reload |
+| `video.spec.js` | nothing reaches YouTube before pressing play (requests to other hosts are recorded, never sent) |
+| `languages.spec.js` | the switcher and redirects with translated slugs |
+| `no-javascript.spec.js` | colours, the hidden theme switcher and video links without JavaScript |
+
+Every test also fails on a **Content Security Policy violation, a JavaScript error or a console
+error** on any page it visits (`tests/e2e/fixtures.js`), so a new inline script or a blocked
+resource is caught wherever it appears. Write your own specs with the same fixtures:
+
+```js
+import { expect, test } from './fixtures.js';
+
+test('the mixer plays', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Play' }).click();
+    await expect(page.getByText('Sound on')).toBeVisible();
+});
+```
+
+Playwright needs a Chromium: CI installs its own (`npx playwright install --with-deps chromium`);
+elsewhere, `CHROMIUM_PATH` points it at an installed one.
+
+The framework's own browser helpers (`persist()`, `theme()`, `publicConfig()`) have unit tests with
+Vitest in the framework repository (`tests/js/`).
+
 ## Continuous integration
 
 `.github/workflows/ci.yml` runs on every push and pull request: install, `npm run build`, PHPUnit,
-PHPStan.
+PHPStan, then the Playwright browser tests. When a browser test fails, the HTML report with a trace
+of the failure is attached to the run.
