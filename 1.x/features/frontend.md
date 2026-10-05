@@ -81,6 +81,21 @@ The layout prints it after `app.js` with `{{ vite('resources/js/app.js', page_sc
 `vite()` accepts entries and lists of entries, and prints shared chunks once. See
 [JavaScript & Datastar](javascript) for how such a module works with Datastar.
 
+## Accessibility basics
+
+The skeleton's layout and CSS come with three things every site keeps, whatever its design:
+
+- **A skip link**, the first thing keyboard users reach: "Skip to content" slides in on focus and
+  moves the focus past the navigation to `<main id="main">`.
+- **Visible keyboard focus**: `:focus-visible` gets an outline in the theme's `primary` colour, on
+  every element. Mouse clicks don't trigger it on links and buttons, so they stay clean.
+- **Reduced motion**: visitors whose system asks for less motion get no transitions, animations or
+  smooth scrolling (`@media (prefers-reduced-motion: reduce)` in `resources/css/app.css`).
+
+They're plain CSS and markup in your site, so adapt them freely; `tests/e2e/accessibility.spec.js`
+checks they keep working. Interactive components such as dialogs or toasts aren't part of Starlite:
+native HTML (`<dialog>`, `<input type="range">`) with Datastar covers them, styled your way.
+
 ## Environment variables in JavaScript
 
 Only variables prefixed `VITE_PUBLIC_` are ever inlined into the bundle
