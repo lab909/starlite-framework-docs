@@ -124,6 +124,21 @@ Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\
 | `warmup(): array` | compile into `var/cache/collections.php`; returns items per collection |
 | `exported(): list<string>` | collections with a JSON export |
 
+## Forms
+
+`Starlite\Forms\Forms` (`$app->forms`), see [Forms](../features/forms).
+
+| Member | |
+|---|---|
+| `submit(name, Request): Submission` | validates, runs the spam checks, sends the email |
+| `get(name): Form`, `blank(name): Submission` | a form's definition; its empty state |
+| `rule(form, field, Closure)` | a custom validation rule |
+| `addSpamCheck(name, Closure $factory)` | a spam check forms can list in `spam` |
+| `spamMarkup(name): string` | what `form_spam()` prints |
+| `useTransport(TransportInterface)` | deliver through another transport (tests) |
+
+`Submission`: `$values`, `$errors` (field or `_form` => message), `$sent`, `$spam` (the reason, for logs), `valid()`.
+
 ## Csp
 
 `Starlite\Csp` (`$app->csp`), the Content Security Policy sent on pages (see [Security](../security#content-security-policy)).
@@ -150,4 +165,5 @@ Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\
 
 `Starlite\Testing\KernelTestCase`, the base class for app tests (needs `phpunit/phpunit`):
 `bootKernel()`, `request()`, `body()`, `tempDir()`, `copyToTemp()`, `write()`, and
-`requireViteBuild($app)` for tests that check built assets. See [Testing](../testing).
+`requireViteBuild($app)` for tests that check built assets. `request()` takes form fields as
+`parameters:`. See [Testing](../testing).

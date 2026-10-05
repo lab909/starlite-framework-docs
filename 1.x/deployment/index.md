@@ -49,6 +49,8 @@ post and page files published to `public/media/`, which would otherwise shadow t
 
 ## Production checklist
 
+- [ ] `MAILER_DSN`, `MAILER_FROM` and `CONTACT_TO` for the contact form (send yourself a test message)
+
 - [ ] `.env` (or real environment variables) with `APP_URL`, `APP_SECRET`; `APP_DEBUG` unset
 - [ ] PHP 8.4 with `intl`, `mbstring`, `opcache`; `display_errors=Off`, `log_errors=On`
 - [ ] web server root at `public/`, everything else routed to `public/index.php`

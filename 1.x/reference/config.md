@@ -9,6 +9,7 @@ environment variables fit together.
 | `debug` | bool | `APP_DEBUG === '1'` | Development mode: no caches, drafts visible, exception pages |
 | `url` | string | `APP_URL` (required, validated) | Public base URL, no trailing slash. Used for every absolute URL |
 | `media_url` | string | `MEDIA_URL` or `''` | Where post and page files and video posters are served from: `''` (this site) or a CDN's `https://` base URL |
+| `mailer.dsn`, `mailer.from` | ?string | `MAILER_DSN`, `MAILER_FROM` | Sending email for [forms](../features/forms) |
 | `trusted_proxies` | list | from `APP_TRUSTED_PROXIES` | Reverse proxies whose `X-Forwarded-*` headers are trusted |
 | `language` | string | `'en'` | The default language (no URL prefix) |
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |
@@ -29,6 +30,11 @@ Each `site` value can be a map `language => value` instead, see [Languages](../f
 Data collections and their fields: `name => ['fields' => […], 'sort' => …, 'fallback' => …, 'json' => …]`.
 See [Data collections](../content/collections).
 
+## `config/forms.php`
+
+Forms and their fields, recipients and spam checks: `name => ['fields' => […], 'to' => …, 'subject' => …, 'reply_to' => …, 'spam' => […]]`.
+See [Forms](../features/forms).
+
 ## Overrides
 
 `Kernel::boot($root, $debug, $overrides)` merges `$overrides` over the file. These extra keys are
@@ -39,3 +45,4 @@ only meant for overrides (mostly in tests):
 | `content_dir` | `<root>/content` | where `blog/` and the collection folders live |
 | `cache_dir` | `<root>/var/cache` | where compiled caches are written |
 | `collections` | `config/collections.php` | collection definitions, instead of the file |
+| `forms` | `config/forms.php` | form definitions, instead of the file |

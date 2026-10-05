@@ -79,6 +79,7 @@ export default defineConfig({
                         { text: 'JavaScript & Datastar', link: `${v1}/features/javascript` },
                         { text: 'Dark & light theme', link: `${v1}/features/theme` },
                         { text: 'Fonts & icons', link: `${v1}/features/fonts-icons` },
+                        { text: 'Forms', link: `${v1}/features/forms` },
                     ],
                 },
                 {

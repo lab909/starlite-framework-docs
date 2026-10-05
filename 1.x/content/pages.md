@@ -34,6 +34,7 @@ updated: 2026-10-01             (optional: last significant change, for the site
 data:                           (optional: anything else the template needs)
   form_title: Write to us
 slug: chi-siamo                 (translations only: this language's URL segment, see below)
+form: contact                   (optional: a form from config/forms.php the page shows and receives)
 ---
 Page text in Markdown. ![Our team](team.jpg)
 ```

@@ -30,6 +30,12 @@ Behind a reverse proxy, set `APP_TRUSTED_PROXIES` so the check sees the public h
   (`publicConfig()` in JavaScript), and a value containing `APP_SECRET` stops the app from booting.
 - Variables passed to `datastar.get(…)` are signed but readable: never pass secrets through them.
 
+## Forms
+
+Form posts pass the same-origin check like every POST. Values are cleaned (no control characters, no
+line breaks in single-line fields, a maximum length), the visitor only ever goes in Reply-To, and
+spam checks run on this server without third parties (see [Forms](./features/forms#spam-protection)).
+
 ## Content
 
 - Markdown is rendered with raw HTML escaped and `javascript:` links removed.
