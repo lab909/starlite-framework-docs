@@ -124,6 +124,12 @@ Query pages with `$app->pages()` ([Content pages](../content/pages)). `Starlite\
 | `warmup(): array` | compile into `var/cache/collections.php`; returns items per collection |
 | `exported(): list<string>` | collections with a JSON export |
 
+## Images
+
+`Starlite\Images\Images` (`$app->images`), see [Images](../features/images): `picture()`,
+`variant()`, `original()`, `publish()`, `size()`, `widthsFor()`; `$widths`, `$formats`, `$sizes`.
+`$app->image($url, $alt, $options)` is what `image()` prints.
+
 ## Forms
 
 `Starlite\Forms\Forms` (`$app->forms`), see [Forms](../features/forms).

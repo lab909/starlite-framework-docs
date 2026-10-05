@@ -30,6 +30,11 @@ Behind a reverse proxy, set `APP_TRUSTED_PROXIES` so the check sees the public h
   (`publicConfig()` in JavaScript), and a value containing `APP_SECRET` stops the app from booting.
 - Variables passed to `datastar.get(…)` are signed but readable: never pass secrets through them.
 
+## Images
+
+Published images are re-saved without metadata, so a photo's GPS position, device or time never
+reaches the site (see [Images](./features/images#privacy-no-metadata)).
+
 ## Forms
 
 Form posts pass the same-origin check like every POST. Values are cleaned (no control characters, no

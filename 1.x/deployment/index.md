@@ -49,6 +49,8 @@ post and page files published to `public/media/`, which would otherwise shadow t
 
 ## Production checklist
 
+- [ ] Keep `var/images/` between deploys (encoded images are reused from there)
+
 - [ ] `MAILER_DSN`, `MAILER_FROM` and `CONTACT_TO` for the contact form (send yourself a test message)
 
 - [ ] `.env` (or real environment variables) with `APP_URL`, `APP_SECRET`; `APP_DEBUG` unset

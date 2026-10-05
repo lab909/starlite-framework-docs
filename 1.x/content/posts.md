@@ -60,6 +60,9 @@ Put images and files next to `index.md` (subfolders are fine) and link them rela
 
 A line like `::related-posts{limit=2}` places a [content component](./components).
 
+Images get responsive AVIF/WebP versions and lose their metadata (such as a photo's GPS position)
+when published: see [Images](../features/images).
+
 Relative links are rewritten to `/media/blog/<slug>/…`. Allowed types: `jpg`, `jpeg`, `png`,
 `gif`, `webp`, `avif`, `svg`, `pdf`, `mp4`, `webm`. Other files in the folder (notes, source files)
 are never published.

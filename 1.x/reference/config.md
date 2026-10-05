@@ -9,6 +9,7 @@ environment variables fit together.
 | `debug` | bool | `APP_DEBUG === '1'` | Development mode: no caches, drafts visible, exception pages |
 | `url` | string | `APP_URL` (required, validated) | Public base URL, no trailing slash. Used for every absolute URL |
 | `media_url` | string | `MEDIA_URL` or `''` | Where post and page files and video posters are served from: `''` (this site) or a CDN's `https://` base URL |
+| `images.widths`, `images.sizes` | list, string | `[480, 960, 1440]`, `'(min-width: 48rem) 48rem, 100vw'` | Responsive image widths and how wide images are shown ([Images](../features/images)); also `images.presets`, `images.formats`, `images.quality` |
 | `mailer.dsn`, `mailer.from` | ?string | `MAILER_DSN`, `MAILER_FROM` | Sending email for [forms](../features/forms) |
 | `trusted_proxies` | list | from `APP_TRUSTED_PROXIES` | Reverse proxies whose `X-Forwarded-*` headers are trusted |
 | `language` | string | `'en'` | The default language (no URL prefix) |
@@ -46,3 +47,4 @@ only meant for overrides (mostly in tests):
 | `cache_dir` | `<root>/var/cache` | where compiled caches are written |
 | `collections` | `config/collections.php` | collection definitions, instead of the file |
 | `forms` | `config/forms.php` | form definitions, instead of the file |
+| `images_dir` | `<root>/var/images` | where encoded images are kept (tests use a temporary folder) |

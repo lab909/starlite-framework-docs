@@ -5,6 +5,11 @@ life**: a marketing site with a blog, a documentation hub, a tool with a single 
 It gives you routing, Twig templates, reactive UI through [Datastar](https://data-star.dev), a
 Markdown blog, translations and SEO, without a database or an admin panel.
 
+Starlite is freely inspired by [Craft CMS](https://craftcms.com), for its Twig-first templates,
+content that templates query rather than receive, and image transforms, and by
+[Datastar](https://data-star.dev), for its hypermedia approach: the server renders HTML, and the
+browser stays light.
+
 Everything a request needs (compiled routes, Twig templates, parsed blog posts, translations, the
 Vite manifest) is built ahead of time into plain PHP files in `var/cache`. Opcache keeps those in
 shared memory, so a production request does no parsing, no database queries and no file scanning.

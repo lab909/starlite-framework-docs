@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Starlite
   text: Dynamic sites at static speed
-  tagline: A tiny, database-free PHP micro framework. Twig, Datastar, a Markdown blog, translations and SEO, compiled ahead of time for Opcache.
+  tagline: A tiny, database-free PHP micro framework, freely inspired by Craft CMS and Datastar. Twig, Datastar, a Markdown blog, translations and SEO, compiled ahead of time for Opcache.
   image:
     src: /logo.svg
     alt: Starlite
