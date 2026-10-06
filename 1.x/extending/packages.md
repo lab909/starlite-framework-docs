@@ -80,6 +80,11 @@ final class BuildAudioCommand extends \Acme\AudioPlayer\BuildAudioCommand
 A deploy step from `register()` should be a closure (`addDeployStep('audio', fn (Kernel $app, $io) => …)`),
 so it works whether or not the site enabled the command.
 
+## A CDN
+
+A package can add a CDN to purge with a class implementing `Starlite\Cdn\Purger`, given in
+`register()` with `$app->cdn->usePurger(…)`. See [CDN caching](../deployment/cdn#another-cdn-as-a-package).
+
 ## Dependencies
 
 Require `starlite/framework` with the same constraint as sites (`^1.0@dev`) and keep the package's

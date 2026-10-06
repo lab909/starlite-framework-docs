@@ -9,8 +9,8 @@ php bin/console deploy           # in DDEV: ddev console deploy
 ```
 
 `deploy` runs [its steps](../extending/deploy-steps) in order: optimize the autoloader, rebuild
-`var/cache` (routes, posts, translations, templates, the Vite manifest), publish post files, and
-refresh the web server's Opcache.
+`var/cache` (routes, posts, translations, templates, the Vite manifest), publish post files,
+refresh the web server's Opcache, and purge the CDN when [CDN caching](./cdn) is on.
 
 **Run it after every change**: code, templates, content or configuration. In production, changes
 aren't picked up until then.
@@ -57,6 +57,8 @@ post and page files published to `public/media/`, which would otherwise shadow t
 - [ ] PHP 8.4 with `intl`, `mbstring`, `opcache`; `display_errors=Off`, `log_errors=On`
 - [ ] web server root at `public/`, everything else routed to `public/index.php`
 - [ ] `var/cache` writable by the deploy user and readable by PHP; `var/log` writable by PHP
+- [ ] Behind a CDN: `CDN_CACHE=1` and `CDN_PURGE` with its credentials ([CDN caching](./cdn)), and the CDN
+      in your privacy policy
 - [ ] `LOG_ALERT_TO` to hear about errors by email ([Logging](../features/logging)), and the web
       server's access log turned off or without IP addresses ([Access logs](./servers#access-logs))
 - [ ] the Opcache mode for this server (`APP_OPCACHE`), see [Servers & Opcache](./servers)

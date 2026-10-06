@@ -15,6 +15,11 @@ environment variables fit together.
 | `log.days` | int | `14` | Daily log files to keep |
 | `log.alert_to` | ?string or list | `LOG_ALERT_TO` | Who gets an email when an error is logged (needs the mailer) |
 | `log.path` | string | `var/log/app.log` | The log file (dated per day), or a stream like `php://stderr` |
+| `cdn.enabled` | bool | `CDN_CACHE=1`, else off | Cache pages at a CDN ([CDN caching](../deployment/cdn)) |
+| `cdn.ttl` | ?int | an hour with purging, else 5 minutes | How long the CDN keeps a page (`s-maxage`) |
+| `cdn.stale_while_revalidate`, `cdn.stale_if_error` | int | `60`, `86400` | Seconds the CDN may serve an old copy while refreshing it, or while the site is down |
+| `cdn.exclude` | list | `[]` | Route names never cached at the CDN (the Datastar endpoint never is) |
+| `cdn.purge` | ?string | `CDN_PURGE` | `cloudflare`, `bunny` or `command`; with `cdn.cloudflare` (`zone`, `token`), `cdn.bunny` (`pull_zone`, `key`), `cdn.command` |
 | `trusted_proxies` | list | from `APP_TRUSTED_PROXIES` | Reverse proxies whose `X-Forwarded-*` headers are trusted |
 | `language` | string | `'en'` | The default language (no URL prefix) |
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |

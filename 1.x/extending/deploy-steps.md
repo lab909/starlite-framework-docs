@@ -23,6 +23,7 @@ ddev console deploy --list-steps
 | `templates` | compile every Twig template |
 | `vite` | cache the Vite manifest |
 | `opcache` | refresh the web server's Opcache ([Servers & Opcache](../deployment/servers)) |
+| `cdn` | purge the CDN, when [CDN caching](../deployment/cdn) is on and `CDN_PURGE` is set |
 
 ## Adding a step
 

@@ -32,6 +32,7 @@ argument of `config/routes.php` and `config/bootstrap.php`.
 | `addDeployStep(name, step, description, before, after)` | add a step to `deploy` |
 | `$root`, `$debug`, `$cacheDir` | project root, debug mode, cache directory |
 | `$twig`, `$router`, `$blog`, `$seo`, `$site`, `$container`, `$translations`, `$datastar`, `$vite`, `$publicConfig`, `$csp`, `$collections`, `$pages` | Starlite's services |
+| `$cdn` | CDN caching and purging: `skip()` keeps the current response out of the CDN, `usePurger()`, `purger()`, `url()` ([CDN caching](../deployment/cdn)) |
 | `$logger` | the log, a Monolog `Logger` (PSR-3); also `Psr\Log\LoggerInterface` in the container ([Logging](../features/logging)) |
 
 ## Controller

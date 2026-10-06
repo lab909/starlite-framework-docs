@@ -125,6 +125,8 @@ fetches from your site's `/media/` the first time and caches. `deploy` still pub
 `public/media/`, and the CDN's host is added to the Content Security Policy's `img-src` and
 `media-src` automatically. Run `deploy` after changing `MEDIA_URL`: post HTML is compiled with it.
 
+To cache the pages themselves at a CDN, see [CDN caching](./cdn).
+
 ::: tip
 Apache doesn't allow comments after a directive on the same line, which is why the comment above
 sits on its own line.

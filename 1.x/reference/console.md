@@ -29,6 +29,20 @@ after a deploy.
 |---|---|---|
 | `--composer` | `composer` | Composer binary |
 
+## `cdn:purge`
+
+Drops pages from the CDN's cache ([CDN caching](../deployment/cdn)), with the purger set by
+`CDN_PURGE` or a package.
+
+```sh
+php bin/console cdn:purge blog/my-post /it/chi-siamo        # paths on this site (APP_URL)
+php bin/console cdn:purge https://example.com/blog/my-post  # full URLs
+php bin/console cdn:purge --all                             # everything
+```
+
+Exit codes: `0` purged, `1` the CDN refused or no purge is set up (the message says why), `2` no
+URLs and no `--all`, or both.
+
 ## Your commands
 
 Every command class in `src/Command/` is registered automatically. See

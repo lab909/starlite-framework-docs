@@ -100,6 +100,7 @@ export default defineConfig({
                     items: [
                         { text: 'Deploying', link: `${v1}/deployment/` },
                         { text: 'Servers & Opcache', link: `${v1}/deployment/servers` },
+                        { text: 'CDN caching', link: `${v1}/deployment/cdn` },
                         { text: 'Testing', link: `${v1}/testing` },
                         { text: 'Security', link: `${v1}/security` },
                         { text: 'Contributing', link: `${v1}/contributing` },

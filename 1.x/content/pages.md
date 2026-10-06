@@ -35,9 +35,13 @@ data:                           (optional: anything else the template needs)
   form_title: Write to us
 slug: chi-siamo                 (translations only: this language's URL segment, see below)
 form: contact                   (optional: a form from config/forms.php the page shows and receives)
+cdn: false                      (optional: never cached at the CDN, see CDN caching)
 ---
 Page text in Markdown. ![Our team](team.jpg)
 ```
+
+`cdn: false` matters only with [CDN caching](../deployment/cdn) on: for a page that changes more
+often than you deploy. Your page controller applies it (the skeleton's `PageController` does).
 
 Relative links and images point at files in the page's folder, like in posts. Any other front
 matter key is an error that lists the allowed ones: put custom values under `data`.
@@ -139,7 +143,7 @@ A page has these fields:
 | `slug` | the folder name: `credits` |
 | `parent` | the parent's path, or `''` for a top-level page |
 | `depth` | `1` for top-level pages, `2` for their children… |
-| `language`, `title`, `summary`, `image`, `template`, `order`, `updated`, `data` | from the file and its front matter |
+| `language`, `title`, `summary`, `image`, `template`, `order`, `updated`, `cdn`, `data` | from the file and its front matter |
 | `html` | the rendered Markdown |
 
 `pages()` is sorted by path, so each page comes before its children.
