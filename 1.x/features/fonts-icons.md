@@ -104,6 +104,16 @@ Put SVG files in `resources/icons/` and use them as `icon-[app--<file name>]`; t
 `currentColor` (or a single colour) for strokes and fills. While the dev server runs, Vite restarts
 by itself when you add or change one.
 
+### Licenses
+
+Fonts and icons are other people's work, distributed with your site under their licenses. The
+skeleton credits them in two places, as their licenses ask: a short `/*! … */` notice in
+`resources/css/app.css` (kept in the built CSS), and the full texts in
+`public/third-party-licenses.txt`, served at `/third-party-licenses.txt`. When you switch font or
+add an icon set, add its notice and license there; `tests/LicensesTest.php` checks the ones the
+skeleton ships. Fontsource packages include their font's license in `node_modules/@fontsource…/LICENSE`,
+and Iconify's `info.json` names each icon set's license.
+
 ### Accessibility
 
 An icon next to text is decoration: add `aria-hidden="true"`. An icon-only button needs a text

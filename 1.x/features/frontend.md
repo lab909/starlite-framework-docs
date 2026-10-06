@@ -12,7 +12,8 @@ resources/
 ```
 
 The Datastar client itself ships with the framework, matched to its PHP SDK, and is imported as
-`'datastar'`.
+`'datastar'`. It's MIT-licensed: its license notice is kept in your built JavaScript, and the full
+text is in the skeleton's `public/third-party-licenses.txt`.
 
 ## Development
 
