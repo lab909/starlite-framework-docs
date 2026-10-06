@@ -20,6 +20,7 @@ my-site/
 ├── tests/                   Your app's tests
 ├── translations/            UI texts per language: en.php, it.php, …
 ├── var/cache/               Compiled caches (safe to delete)
+├── var/log/                 The log, one file per day (see Logging)
 ├── vendor/starlite/framework/  ★ The framework, installed by Composer: never edit it
 ├── .env                     Local environment (never committed)
 ├── composer.json            Your app's dependencies; requires starlite/framework

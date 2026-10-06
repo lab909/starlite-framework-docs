@@ -141,8 +141,8 @@ only with `csp_allow()`, and mention them on your privacy page.
 
 ## Privacy
 
-- Submissions are **emailed, not stored**. There's no database of messages, and the logs don't
-  contain them.
+- Submissions are **emailed, not stored**. There's no database of messages, and the
+  [log](./logging) only says a form was sent or rejected as spam, never what was in it.
 - Tell visitors what happens to their details. The skeleton's form says "We use your details only to
   reply to you" with a link to the Privacy page, which has a paragraph about the form.
 

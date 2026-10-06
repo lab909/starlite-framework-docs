@@ -56,6 +56,8 @@ post and page files published to `public/media/`, which would otherwise shadow t
 - [ ] `.env` (or real environment variables) with `APP_URL`, `APP_SECRET`; `APP_DEBUG` unset
 - [ ] PHP 8.4 with `intl`, `mbstring`, `opcache`; `display_errors=Off`, `log_errors=On`
 - [ ] web server root at `public/`, everything else routed to `public/index.php`
-- [ ] `var/cache` writable by the deploy user and readable by PHP
+- [ ] `var/cache` writable by the deploy user and readable by PHP; `var/log` writable by PHP
+- [ ] `LOG_ALERT_TO` to hear about errors by email ([Logging](../features/logging)), and the web
+      server's access log turned off or without IP addresses ([Access logs](./servers#access-logs))
 - [ ] the Opcache mode for this server (`APP_OPCACHE`), see [Servers & Opcache](./servers)
 - [ ] HTTPS, and `APP_TRUSTED_PROXIES` if behind a proxy or load balancer

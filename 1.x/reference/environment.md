@@ -11,6 +11,8 @@ lists them all.
 | `MAILER_DSN` | for forms | | How email is sent (Symfony Mailer), e.g. `smtp://user:pass@smtp.example.com:587` |
 | `MAILER_FROM` | for forms | | The address emails come from, of your own domain |
 | `CONTACT_TO` | for the contact form | | Where the skeleton's contact form goes (comma-separated) |
+| `LOG_ALERT_TO` | no | | Email errors to this address (comma-separated for several), see [Logging](../features/logging) |
+| `LOG_LEVEL` | no | `debug` / `info` | The least important messages logged: `debug`, `info`, `notice`, `warning`, `error`… |
 | `MEDIA_URL` | no | | Serve post and page files and video posters from a CDN: an `https://` base URL, no trailing slash |
 | `BLOG_PER_PAGE` | no | `20` | Posts per page on `/blog` |
 | `APP_TRUSTED_PROXIES` | no | | Comma-separated IPs/CIDRs of trusted proxies, or `REMOTE_ADDR` |

@@ -11,6 +11,10 @@ environment variables fit together.
 | `media_url` | string | `MEDIA_URL` or `''` | Where post and page files and video posters are served from: `''` (this site) or a CDN's `https://` base URL |
 | `images.widths`, `images.sizes` | list, string | `[480, 960, 1440]`, `'(min-width: 48rem) 48rem, 100vw'` | Responsive image widths and how wide images are shown ([Images](../features/images)); also `images.presets`, `images.formats`, `images.quality` |
 | `mailer.dsn`, `mailer.from` | ?string | `MAILER_DSN`, `MAILER_FROM` | Sending email for [forms](../features/forms) |
+| `log.level` | string | `LOG_LEVEL`, or `debug` in development and `info` in production | The least important messages written to the [log](../features/logging) |
+| `log.days` | int | `14` | Daily log files to keep |
+| `log.alert_to` | ?string or list | `LOG_ALERT_TO` | Who gets an email when an error is logged (needs the mailer) |
+| `log.path` | string | `var/log/app.log` | The log file (dated per day), or a stream like `php://stderr` |
 | `trusted_proxies` | list | from `APP_TRUSTED_PROXIES` | Reverse proxies whose `X-Forwarded-*` headers are trusted |
 | `language` | string | `'en'` | The default language (no URL prefix) |
 | `languages` | map | `en`, `it` | `code => ['name' => …, 'locale' => …]`; codes like `en` or `pt-br` |

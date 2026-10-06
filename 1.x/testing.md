@@ -50,6 +50,7 @@ temporary cache directory. The helpers:
 | `$this->request($app, $uri, $method, $headers, $body)` | handles a request |
 | `self::body($response)` | the body of any response, including Datastar streams and files |
 | `$this->datastarUrl($html, $template)` | the Datastar URL rendering `$template`, from a page |
+| `$this->logged()` | what the apps booted in this test have logged (each test gets its own log directory) |
 | `$this->tempDir()`, `$this->copyToTemp()`, `self::write()` | temporary files, deleted after the test |
 
 ## Tests and the Vite build

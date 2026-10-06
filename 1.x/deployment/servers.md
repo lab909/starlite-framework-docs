@@ -136,6 +136,36 @@ sits on its own line.
 missing (say, after `cache:clear` without a deploy), it rebuilds it on the fly, so it then needs write
 access too.
 
+`var/log` must be writable by PHP (see [Logging](../features/logging)).
+
+## Access logs
+
+Starlite's own [log](../features/logging) records nothing about visitors, but web servers keep an
+**access log** of every request by default, with the visitor's IP address, the full URL with its
+query string, the referrer and the browser. That's personal data, kept for as long as the server's
+log rotation says (often weeks or months).
+
+If you don't need it, turn it off, or keep it without the IP address. nginx:
+
+```nginx
+access_log off;
+
+# or: keep the request lines, without who made them
+log_format private '$time_local "$request_method $uri" $status $body_bytes_sent';
+access_log /var/log/nginx/my-site.log private;
+```
+
+Apache:
+
+```apache
+LogFormat "%t \"%m %U\" %>s %b" private
+CustomLog ${APACHE_LOG_DIR}/my-site.log private
+```
+
+`$uri` and `%U` are the path without the query string. Whatever you keep, set how long it's kept
+(`logrotate`'s `rotate` and `daily`/`weekly`) and mention it in your privacy policy. On shared
+hosting, the host's control panel usually has these settings.
+
 ## Behind a proxy or load balancer
 
 Set `APP_TRUSTED_PROXIES` (comma-separated IPs or CIDR ranges, or `REMOTE_ADDR` for the direct

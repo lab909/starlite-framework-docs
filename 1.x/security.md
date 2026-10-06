@@ -56,7 +56,8 @@ spam checks run on this server without third parties (see [Forms](./features/for
   strict-origin-when-cross-origin` and `X-Frame-Options: SAMEORIGIN`.
 - Pages send a strict Content Security Policy (below).
 - Absolute URLs come from `APP_URL` only, so a forged `Host` header can't poison cached pages.
-- Production errors are logged, never shown: visitors get a generic error page.
+- Production errors are logged, never shown: visitors get a generic error page. The log holds no IP
+  addresses, query strings or function arguments, and is deleted after 14 days ([Logging](./features/logging)).
 
 ## Deployment
 
